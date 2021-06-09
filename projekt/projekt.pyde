@@ -17,7 +17,9 @@ class Ship():
     #ShotDirection
     #sprite
     def shot():
-        pass
+        # tworzymy dodajemy do listy sktywnych strzał strzałę
+        # ustawienie pozycji dla strzały na pozycję statku
+        # ustawienie kierunku ruchu dla strzały
     def changePosition():
         pass
 class Player(Ship):
@@ -35,45 +37,55 @@ class Enemy(Ship):
         self.positionHorizontal = pos
         self.positionVertical = 15
         self.movementDirection = 1
-        self.visability = 1
+        self.visability = True
     def changePosition(self):
         pass
+    def changeVisability(self):
+        # zmina visability
+        # sprawdzanie czy wszyscy zestrzeleni (areEnemiesDestroyed)
+        # doliczenie punktów
     #strzelanie
     pass
 class Bullet():
     pass
     # position
+    # direction
     # movement
 class Interface():
-    points = 0
+    self.points = 0
     def bulletIntoYou():
+        # wyświetlenie GameOver
+    def areEnemiesDestroyed():
         pass
+        # sprawdzanie po kolei listy wrogów i ich widzialności
+            # jeżeli wszyscy zbici to wyświelenie wygranej
+    def addPoint():
+        self.points += self.points
     
 def setup():
-    size(800,600)
+    size(800, 600)
     global enemyList, player1
+    player1 = Player()
     enemyList = []
     for num, i in enumerate(range(Enemy.quantity)):
         enemyList.append(Enemy(0+num*20))
-    player1 = Player()
 def draw():
     if keyPressed:
-        pass
-        # jeżeli spacja
-          # metoda od strzelania
         # jeżeli strzałka w lewo albo 'a'
-          # changePosition(True)
+            player1.changePosition(True)
+        # jeżeli strzałka w prawo albo 'd'
+            player1.changePosition(False)
+        # jeżeli spacja
+            player1.shot()
     for enemy in enemyList:
         enemy.changePosition()
         #losowanie czy dany przeciwnik strzela
-            #ustawienie pozycji na pozycję wroga dla ewentualnej strzały
-            #ustawienie kierunku dla strzały
-    # przesunięcie w odpowiednim kierunku każdej ze strzał na ekranie
-    # sprawdzenie czy są na wysokości gracza lub przeciwnika
-    # sprawdzenie czy dotyka gracza lub przeciwnika
-    # sprawdzenie czy kierunek strzały jest zgodny z statkiem którego dostyka (czy ma go zwalczać)
-        #utrata życia lub zabicie, czyli np. ustawienie visability na 0
-
+            # jeżeli się wylosował strzał
+            enemy.shot()
+    # przesunięcie w odpowiednim kierunku pozycji każdej ze strzał na ekranie (liście strzał ekranu)
+    # sprawdzenie, czy pozycja vertykalna strzały jest  na wysokości gracza - taka jak pozycje vertykalne statków
+    # sprawdzenie, czy dotyka gracza lub przeciwnika
+    # sprawdzenie, czy kierunek strzały jest zgodny ze statkiem którego dotyka
+        # zależnie od tego którego statku dotyka, wywołanie bulletIntoYou lub zmiana visability wroga
         
-    #wyświetlanie liczby punktów na ekranie
-    #sprawdzanie, czy liczba punktów się zmieniła w tej klatce
+    # wyświetlenie aktualnej liczby punktów
