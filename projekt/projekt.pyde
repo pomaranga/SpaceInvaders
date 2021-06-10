@@ -4,8 +4,8 @@ grafiki do stworzenia: statku kosmitów, tła, pociski, animacja wybuchu, ew. 't
 class Ship():
     #ShotDirection
     #sprite
-    def shot(self):
-        # tworzymy i dodajemy do listy sktywnych pocisków pocisk
+    def shot(self, down):
+        # tworzymy instancję pocisku i dodajemy do listy sktywnych pocisków ów pocisk
         # ustawienie pozycji dla pocisku na pozycję statku (self.position)
         # ustawienie kierunku ruchu dla pocisku
         pass
@@ -14,8 +14,8 @@ class Ship():
 class Player(Ship):
     #position
     #grafika
-    def changePosition(czyLewo):
-        if czyLewo:
+    def changePosition(Left):
+        if Left:
             pass
             # zmiana pozycji o ileś w lewo (zmniejszenie positionHorizontal)
         else:
@@ -32,8 +32,8 @@ class Enemy(Ship):
         pass
     def changeVisability(self):
         # zmina visability
-        # sprawdzanie czy wszyscy zestrzeleni (areEnemiesDestroyed)
-        # doliczenie punktów
+            # sprawdzanie czy wszyscy zestrzeleni (areEnemiesDestroyed)
+                # doliczenie punktów
         pass
 class Bullet():
     pass
@@ -51,6 +51,7 @@ class Interface():
             # jeżeli wszyscy zbici to wyświelenie wygranej
     def addPoint():
         self.points += 1
+    # metoda wyświetlająca bieżącą punktację
     
 def setup():
     size(800, 600)
@@ -70,10 +71,10 @@ def draw():
     for enemy in enemyList:
         enemy.changePosition()
         #losowanie czy dany przeciwnik strzela lub odliczanie do strzału w pętli
-            # jeżeli się wylosował strzał
-        enemy.shot()
-    # przesunięcie w odpowiednim kierunku pozycji każdego z pocisków na ekranie (liście pocisków ekranu)
-        # sprawdzenie, czy pozycja vertykalna pocisku jest  na wysokości gracza - taka jak pozycje vertykalne statków
+            # jeżeli strzał został wylosowany
+        enemy.shot(True)
+    # przesunięcie w odpowiednim kierunku pozycji każdego z aktywnych pocisków na ekranie (liście pocisków ekranu)
+        # sprawdzenie, czy pozycja vertykalna pocisku jest na wysokości statku - taka jak pozycje vertykalne statków
             # sprawdzenie, czy dotyka gracza lub przeciwnika
                 # sprawdzenie, czy kierunek strzały jest zgodny ze statkiem którego dotyka
                     # zależnie od tego którego statku dotyka, wywołanie bulletIntoYou lub zmiana visability wroga
