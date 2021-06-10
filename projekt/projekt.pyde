@@ -1,28 +1,19 @@
 '''
-statek
- strzelanie
- poruszanie w poziomie
- przegrana - utrata życia
- sterowanie przez gracza
-kosmici
- gromada
- poruszanie gromadą
- nadlatywanie
- umieranie
-punktacja
-tło
-grafiki: statku kosmitów, tła, pociski, animacja wybuchu
+grafiki do stworzenia: statku kosmitów, tła, pociski, animacja wybuchu, ew. 'tarcze/przeszkody'
 '''
 class Ship():
     #ShotDirection
     #sprite
-    def shot():
-        # tworzymy dodajemy do listy sktywnych strzał strzałę
-        # ustawienie pozycji dla strzały na pozycję statku
-        # ustawienie kierunku ruchu dla strzały
+    def shot(self):
+        # tworzymy i dodajemy do listy sktywnych pocisków pocisk
+        # ustawienie pozycji dla pocisku na pozycję statku (self.position)
+        # ustawienie kierunku ruchu dla pocisku
+        pass
     def changePosition():
         pass
 class Player(Ship):
+    #position
+    #grafika
     def changePosition(czyLewo):
         if czyLewo:
             pass
@@ -30,7 +21,6 @@ class Player(Ship):
         else:
             pass
             # zmiana pozycji o ileś w prawo (zwiększenie positionHorizontal)
-    # strzelanie spacją
 class Enemy(Ship):
     quantity = 3
     def __init__(self, pos):
@@ -44,23 +34,23 @@ class Enemy(Ship):
         # zmina visability
         # sprawdzanie czy wszyscy zestrzeleni (areEnemiesDestroyed)
         # doliczenie punktów
-    #strzelanie
-    pass
+        pass
 class Bullet():
     pass
-    # position
-    # direction
-    # movement
+    # position - atrybut
+    # direction - atrybut
+    # movement - metoda
 class Interface():
-    self.points = 0
+    points = 0
     def bulletIntoYou():
         # wyświetlenie GameOver
+        pass
     def areEnemiesDestroyed():
         pass
         # sprawdzanie po kolei listy wrogów i ich widzialności
             # jeżeli wszyscy zbici to wyświelenie wygranej
     def addPoint():
-        self.points += self.points
+        self.points += 1
     
 def setup():
     size(800, 600)
@@ -75,17 +65,17 @@ def draw():
             player1.changePosition(True)
         # jeżeli strzałka w prawo albo 'd'
             player1.changePosition(False)
-        # jeżeli spacja
-            player1.shot()
+        # jeżeli spacja lub enter lub strzałka w dół
+            player1.shot() # dodać kierunek strzelania jako argument
     for enemy in enemyList:
         enemy.changePosition()
-        #losowanie czy dany przeciwnik strzela
+        #losowanie czy dany przeciwnik strzela lub odliczanie do strzału w pętli
             # jeżeli się wylosował strzał
-            enemy.shot()
-    # przesunięcie w odpowiednim kierunku pozycji każdej ze strzał na ekranie (liście strzał ekranu)
-    # sprawdzenie, czy pozycja vertykalna strzały jest  na wysokości gracza - taka jak pozycje vertykalne statków
-    # sprawdzenie, czy dotyka gracza lub przeciwnika
-    # sprawdzenie, czy kierunek strzały jest zgodny ze statkiem którego dotyka
-        # zależnie od tego którego statku dotyka, wywołanie bulletIntoYou lub zmiana visability wroga
+        enemy.shot()
+    # przesunięcie w odpowiednim kierunku pozycji każdego z pocisków na ekranie (liście pocisków ekranu)
+        # sprawdzenie, czy pozycja vertykalna pocisku jest  na wysokości gracza - taka jak pozycje vertykalne statków
+            # sprawdzenie, czy dotyka gracza lub przeciwnika
+                # sprawdzenie, czy kierunek strzały jest zgodny ze statkiem którego dotyka
+                    # zależnie od tego którego statku dotyka, wywołanie bulletIntoYou lub zmiana visability wroga
         
     # wyświetlenie aktualnej liczby punktów
