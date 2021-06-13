@@ -14,10 +14,6 @@ class Ship():
 class Player(Ship):
     #position
     #grafika
-    def draw() :
-    rect (50, 50, 100, 100)
-    rect (50, 150, 25, 25)
-    rect (125, 150, 25, 25)
     def changePosition(Left):
         if Left:
             pass
