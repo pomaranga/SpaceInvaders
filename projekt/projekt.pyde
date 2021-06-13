@@ -15,54 +15,54 @@ class Player(Ship):
     #position
     #grafika
     #grafika_eksplozja
-a = 380
-b = 260
-c = 420
-d = 260
-e = 380
-f = 300
-g = 420
-h = 300
-i = 40
+    a = 380
+    b = 260
+    c = 420
+    d = 260
+    e = 380
+    f = 300
+    g = 420
+    h = 300
+    i = 40
 
-def setup():
-    size(800, 600)
+    def setup():
+        size(800, 600)
     
-def draw():
-    global a
-    a = a - 5
+    def draw():
+        global a
+        a = a - 5
     
-    global b
-    b = b - 5
+        global b
+        b = b - 5
     
-    global c
-    c = c + 5
+        global c
+        c = c + 5
     
-    global d
-    d = d - 5
+        global d
+        d = d - 5
     
-    global e
-    e = e - 5
+        global e
+        e = e - 5
     
-    global f
-    f = f + 5
+        global f
+        f = f + 5
     
-    global g
-    g = g + 5
+        global g
+        g = g + 5
     
-    global h
-    h = h + 5
+        global h
+        h = h + 5
     
     
-    fill(255, 150, 0)
-    stroke(255, 150, 0)
-    rect(a, b, i, i)
+        fill(255, 150, 0)
+        stroke(255, 150, 0)
+        rect(a, b, i, i)
     
-    rect(c, d, i, i)
+        rect(c, d, i, i)
     
-    rect(e, f, i, i)
+        rect(e, f, i, i)
     
-    rect(g, h, i, i)
+        rect(g, h, i, i)
     
     def changePosition(Left):
         if Left:
