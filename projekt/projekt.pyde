@@ -72,6 +72,7 @@ class Player(Ship):
             pass
             # zmiana pozycji o ileś w prawo (zwiększenie positionHorizontal)
 class Enemy(Ship):
+    doNastepnegoStrzalu = 0
     quantity = 3
     def __init__(self, pos):
         self.positionHorizontal = pos
@@ -120,9 +121,16 @@ def draw():
             player1.shot() # dodać kierunek strzelania jako argument
     for enemy in enemyList:
         enemy.changePosition()
+    
         #losowanie czy dany przeciwnik strzela lub odliczanie do strzału w pętli
-            # jeżeli strzał został wylosowany
-        enemy.shot(True)
+        enemy.doNastepnegoStrzalu -= 1
+        if(enemy.doNastepnegoStrzalu <= 0):
+            czyStrzela = int(random(0,2))
+            enemy.doNastepnegoStrzalu = 100
+        # jeżeli strzał został wylosowany
+            if(czyStrzela == 1):
+                enemy.shot(True)
+
     # przesunięcie w odpowiednim kierunku pozycji każdego z aktywnych pocisków na ekranie (liście pocisków ekranu)
         # sprawdzenie, czy pozycja vertykalna pocisku jest na wysokości statku - taka jak pozycje vertykalne statków
             # sprawdzenie, czy dotyka gracza lub przeciwnika
