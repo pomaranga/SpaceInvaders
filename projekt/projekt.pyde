@@ -11,58 +11,58 @@ class Ship():
         pass
     def changePosition():
         pass
+    def sketch_ship(self):
+        fill(0,0,0)
+        rect (0,150,10,40)
+        rect (10,150,120,10)
+        rect (120,150,10,40)
+        rect (20,160,90,10)
+        rect (30,170,10,10)
+        rect (90,170,10,10)
+        rect (40,180,10,10)
+        rect (80,180,10,10)
+        rect (10,140,30,10)
+        rect (90,140,30,10)
+        rect (50,140,30,10)
+        rect (20,130,20,10)
+        rect (90,130,20,10)
+        rect (50,130,30,10)
+        rect (30,120,70,10)
+        rect (40,110,50,10)
+        rect (50,100,10,10)
+        rect (70,100,10,10)
+        rect (40,90,10,10)
+        rect (80,90,10,10)
 class Player(Ship):
     #position
     #grafika
-    #grafika - eksplozja_animacja
-    a = 380
-    b = 260
-    c = 420
-    d = 260
-    e = 380
-    f = 300
-    g = 420
-    h = 300
-    i = 40
-
-    def setup():
-        size(800, 600)
     
-    def draw():
-        global a
-        a = a - 5
-    
-        global b
-        b = b - 5
-    
-        global c
-        c = c + 5
-    
-        global d
-        d = d - 5
-    
-        global e
-        e = e - 5
-    
-        global f
-        f = f + 5
-    
-        global g
-        g = g + 5
-    
-        global h
-        h = h + 5
-    
-    
+    #grafika - eksplozja_animacja:
+    def __init__(self):
+        self.a = 380
+        self.b = 260
+        self.c = 420
+        self.d = 260
+        self.e = 380
+        self.f = 300
+        self.g = 420
+        self.h = 300
+        self.i = 40
+    def sketch_explosion(self):
+        self.a = self.a - 5
+        self.b = self.b - 5
+        self.c = self.c + 5
+        self.d = self.d - 5
+        self.e = self.e - 5
+        self.f = self.f + 5
+        self.g = self.g + 5
+        self.h = self.h + 5
         fill(255, 150, 0)
         stroke(255, 150, 0)
-        rect(a, b, i, i)
-    
-        rect(c, d, i, i)
-    
-        rect(e, f, i, i)
-    
-        rect(g, h, i, i)
+        rect(self.a, self.b, self.i, self.i)
+        rect(self.c, self.d, self.i, self.i)
+        rect(self.e, self.f, self.i, self.i)
+        rect(self.g, self.h, self.i, self.i)
     
     def changePosition(Left):
         if Left:
@@ -87,10 +87,21 @@ class Enemy(Ship):
                 # doliczenie punktów
         pass
 class Bullet():
-    pass
     # position - atrybut
     # direction - atrybut
     # movement - metoda
+    def sketch_bullet(self):
+        fill(255, 0, 0);
+        stroke(0);
+        beginShape();
+        curveVertex(50, 60);
+        curveVertex(30, 30);
+        curveVertex(75, 60);
+        curveVertex(100, 100);
+        curveVertex(50, 120);
+        curveVertex(30, 30); 
+        curveVertex(80, 80);
+        endShape(CLOSE);
 class Interface():
     points = 0
     def bulletIntoYou():
@@ -104,7 +115,7 @@ class Interface():
         self.points += 1
     # metoda wyświetlająca bieżącą punktację
     
-def setup():
+def setup(): # ta funkcja może występować tylko raz w programie
     size(800, 600)
     global enemyList, player1
     player1 = Player()
@@ -112,6 +123,10 @@ def setup():
     for num, i in enumerate(range(Enemy.quantity)):
         enemyList.append(Enemy(0+num*20))
 def draw():
+    player1.sketch_explosion()
+    player1.sketch_ship()
+    b=Bullet()
+    b.sketch_bullet()
     if keyPressed:
         # jeżeli strzałka w lewo albo 'a'
             player1.changePosition(True)
