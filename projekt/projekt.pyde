@@ -14,7 +14,7 @@ class Ship():
 class Player(Ship):
     #position
     #grafika
-    #grafika_eksplozja
+    #grafika - eksplozja_animacja
     a = 380
     b = 260
     c = 420
