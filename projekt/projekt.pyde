@@ -4,10 +4,12 @@ grafiki do stworzenia: statku kosmitów, tła, pociski, animacja wybuchu, ew. 't
 class Ship():
     #ShotDirection
     #sprite
-    def shot(self, down):
-        # tworzymy instancję pocisku i dodajemy do listy sktywnych pocisków ów pocisk
+    def shot(self, angle):
+        fill(25, 255,0)
+        rect(0, 20, 20, 20) # tworzymy instancję pocisku i dodajemy do listy sktywnych pocisków ów pocisk
         # ustawienie pozycji dla pocisku na pozycję statku (self.position)
-        # ustawienie kierunku ruchu dla pocisku
+        self.angle = 180 # ustawienie kierunku ruchu dla pocisku
+        self.speed = 3    # ustawienie prędkości ruchu pocisku
         pass
     def changePosition():
         pass
