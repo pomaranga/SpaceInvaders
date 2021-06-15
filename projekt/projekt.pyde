@@ -67,10 +67,10 @@ class Player(Ship):
     def changePosition(Left):
         if Left:
             pass
-            # zmiana pozycji o ileś w lewo (zmniejszenie positionHorizontal)
+            self.positionHorizontal -= 3
         else:
             pass
-            # zmiana pozycji o ileś w prawo (zwiększenie positionHorizontal)
+            self.positionHorizontal += 3
 class Enemy(Ship):
     doNastepnegoStrzalu = 0
     quantity = 3
