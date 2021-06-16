@@ -110,9 +110,14 @@ class Interface():
         # wyświetlenie GameOver
         pass
     def areEnemiesDestroyed():
-        pass
-        # sprawdzanie po kolei listy wrogów i ich widzialności
+        global enemies
+    for enemy in enemyList:
+        if enemy.visible:
+            return False
+    return True
+    # sprawdzanie po kolei listy wrogów i ich widzialności
             # jeżeli wszyscy zbici to wyświelenie wygranej
+        
     def addPoint():
         self.points += 1
     # metoda wyświetlająca bieżącą punktację
