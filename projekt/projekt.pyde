@@ -152,19 +152,18 @@ def draw():
     b.sketch_bullet()
     s.Shield()
     s.sketch.shield()
+    
     if keyPressed: 
         #jeżeli strzałka w lewo albo 'a'
+        if key == 'a' or keyCode == 37:
             player1.changePosition(True)
         #jeżeli strzałka w prawo albo 'd' 
-        void keyPressed(){ 
-            if (key == 'd' || key == RIGHT) {
-            player1.moveRight();
-            }
-            } 
-            
+        if key == 'd' or keyCode == 39:
             player1.changePosition(False)
         # jeżeli spacja lub enter lub strzałka w dół
+        if key == " " or key == ENTER or keyCode == 40: 
             player1.shot() # dodać kierunek strzelania jako argument }
+            
     for enemy in enemyList:
         enemy.changePosition()
     
