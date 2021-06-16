@@ -129,13 +129,19 @@ def draw():
     player1.sketch_ship()
     b=Bullet()
     b.sketch_bullet()
-    if keyPressed:
-        # jeżeli strzałka w lewo albo 'a'
+    if keyPressed: 
+        #jeżeli strzałka w lewo albo 'a'
             player1.changePosition(True)
-        # jeżeli strzałka w prawo albo 'd'
+        #jeżeli strzałka w prawo albo 'd' 
+        void keyPressed(){ 
+            if (key == 'd' || key == RIGHT) {
+            player1.moveRight();
+            }
+            } 
+            
             player1.changePosition(False)
         # jeżeli spacja lub enter lub strzałka w dół
-            player1.shot() # dodać kierunek strzelania jako argument
+            player1.shot() # dodać kierunek strzelania jako argument }
     for enemy in enemyList:
         enemy.changePosition()
     
