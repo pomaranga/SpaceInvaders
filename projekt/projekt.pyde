@@ -65,6 +65,21 @@ class Player(Ship):
         rect(self.c, self.d, self.i, self.i)
         rect(self.e, self.f, self.i, self.i)
         rect(self.g, self.h, self.i, self.i)
+        
+ class Shield():
+    
+    def sketch_shield(shield):
+        fill(160, 0, 0)
+        stroke(10, 150, 0)
+        rect(80,400,120,50)
+        rect(340,400,120,50)
+        rect(600,400,120,50)
+            
+        shield.visability = True
+        def changeVisability(shield):
+            pass
+        
+
     
     def changePosition(Left):
         if Left:
@@ -134,6 +149,8 @@ def draw():
     player1.sketch_ship()
     b=Bullet()
     b.sketch_bullet()
+    s.Shield()
+    s.sketch.shield()
     if keyPressed: 
         #jeżeli strzałka w lewo albo 'a'
             player1.changePosition(True)
