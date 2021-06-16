@@ -145,6 +145,7 @@ def setup(): # ta funkcja może występować tylko raz w programie
     for num, i in enumerate(range(Enemy.quantity)):
         enemyList.append(Enemy(0+num*20))
 def draw():
+    background(60)
     player1.sketch_explosion()
     player1.sketch_ship()
     b=Bullet()
