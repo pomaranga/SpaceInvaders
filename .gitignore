@@ -7,3 +7,9 @@ application.linux64
 application.windows32
 application.windows64
 application.macosx
+workspace.xml
+wcs.xml
+SpaceInvaders.iml
+modules.xml
+misc.xml
+profiles_settings.xml
