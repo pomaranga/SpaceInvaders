@@ -122,7 +122,7 @@ class Bullet():
 class Interface():
     points = 0
     def bulletIntoYou():
-        # wyświetlenie GameOver
+        text ('GameOver', 400,300)# wyświetlenie GameOver
         pass
     def areEnemiesDestroyed():
         global enemies
