@@ -122,7 +122,7 @@ class Bullet():
 class Interface():
     points = 0
     def bulletIntoYou():
-        # wyświetlenie GameOver
+        text ('GameOver', 400,300)# wyświetlenie GameOver
         pass
     def areEnemiesDestroyed():
         global enemies
@@ -132,7 +132,9 @@ class Interface():
     return True
     # sprawdzanie po kolei listy wrogów i ich widzialności
             # jeżeli wszyscy zbici to wyświelenie wygranej
-        
+       
+if (enemy == 0):
+    print("Brawo! Zwycięstwo!", width/3, height/2)
     def addPoint():
         self.points += 1
     # metoda wyświetlająca bieżącą punktację
