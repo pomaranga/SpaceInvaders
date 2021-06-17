@@ -10,10 +10,9 @@ class Ship():
         self.position = 0 # ustawienie pozycji dla pocisku na pozycję statku (self.position)
         self.angle = 180 # ustawienie kierunku ruchu dla pocisku
         self.speed = 3    # ustawienie prędkości ruchu pocisku
-        pass
     def changePosition():
         pass
-    def sketch_ship(self):
+    def sketch_ship(self): # to należy zmieinć - grafika powinna być w statku wroga i uwzględniać pozycję
         fill(0,0,0)
         rect (0,150,10,40)
         rect (10,150,120,10)
@@ -39,8 +38,8 @@ class Player(Ship):
     #position
     #grafika
     
-    #grafika - eksplozja_animacja:
     def __init__(self):
+        # zmienne potrzebne do porusznia eksplozją
         self.a = 380
         self.b = 260
         self.c = 420
@@ -50,6 +49,7 @@ class Player(Ship):
         self.g = 420
         self.h = 300
         self.i = 40
+    #grafika - eksplozja_animacja - trzeba uwzględnić pozycję z której ma eksplozja nastąpić
     def sketch_explosion(self):
         self.a = self.a - 5
         self.b = self.b - 5
@@ -66,30 +66,14 @@ class Player(Ship):
         rect(self.e, self.f, self.i, self.i)
         rect(self.g, self.h, self.i, self.i)
         
-class Shield():
-    
-    def sketch_shield(shield):
-        fill(160, 0, 0)
-        stroke(10, 150, 0)
-        rect(80,400,120,50)
-        rect(340,400,120,50)
-        rect(600,400,120,50)
-            
-        shield.visability = True
-        def changeVisability(shield):
-            pass
-        
-
-    
     def changePosition(Left):
         if Left:
-            pass
             self.positionHorizontal -= 3
         else:
-            pass
             self.positionHorizontal += 3
+        
 class Enemy(Ship):
-    doNastepnegoStrzalu = 0
+    doNastepnegoStrzalu = 0 # trzymajmy się tego, że po angielsku nazewnictwo :)
     quantity = 3
     def __init__(self, pos):
         self.positionHorizontal = pos
@@ -119,13 +103,25 @@ class Bullet():
         curveVertex(30, 30); 
         curveVertex(80, 80);
         endShape(CLOSE);
+class Shield():
+    
+    def sketch_shield(shield):
+        fill(160, 0, 0)
+        stroke(10, 150, 0)
+        rect(80,400,120,50)
+        rect(340,400,120,50)
+        rect(600,400,120,50)
+            
+        shield.visability = True # to raczej w konstruktorze powinno być
+        
+    def changeVisability(shield):
+        pass
 class Interface():
     points = 0
     def bulletIntoYou():
         text ('GameOver', 400,300)# wyświetlenie GameOver
-        pass
     def areEnemiesDestroyed():
-        for enemy in enemyList:# sprawdzanie po kolei listy wrogów i ich widzialności
+        for enemy in enemyList: # sprawdzanie po kolei listy wrogów i ich widzialności
             if enemy.visible:
                 return False
         # jeżeli wszyscy zbici to wyświelenie wygranej NA EKRANIE GRY     
@@ -142,8 +138,10 @@ def setup(): # ta funkcja może występować tylko raz w programie
     enemyList = []
     for num, i in enumerate(range(Enemy.quantity)):
         enemyList.append(Enemy(0+num*20))
+    # proponuję jeszcze tu listę strzał
 def draw():
     background(60)
+    # te wyświetlania trzeba jeszcze 'posprzątać' w miejsca docelowe
     player1.sketch_explosion()
     player1.sketch_ship()
     b=Bullet()
@@ -152,26 +150,21 @@ def draw():
     s.sketch_shield()
     
     if keyPressed: 
-        #jeżeli strzałka w lewo albo 'a'
-        if key == 'a' or keyCode == 37:
+        if key == 'a' or keyCode == 37: #jeżeli strzałka w lewo albo 'a'
             player1.changePosition(True)
-        #jeżeli strzałka w prawo albo 'd' 
-        if key == 'd' or keyCode == 39:
+        if key == 'd' or keyCode == 39: #jeżeli strzałka w prawo albo 'd'
             player1.changePosition(False)
-        # jeżeli spacja lub enter lub strzałka w dół
-        if key == " " or key == ENTER or keyCode == 40: 
-            player1.shot() # dodać kierunek strzelania jako argument }
+        if key == " " or key == ENTER or keyCode == 40: # jeżeli spacja lub enter lub strzałka w dół
+            player1.shot() # dodać kierunek strzelania jako argument
             
     for enemy in enemyList:
         enemy.changePosition()
     
-        #losowanie czy dany przeciwnik strzela lub odliczanie do strzału w pętli
-        enemy.doNastepnegoStrzalu -= 1
-        if(enemy.doNastepnegoStrzalu <= 0):
-            czyStrzela = int(random(0,2))
-            enemy.doNastepnegoStrzalu = 100
-        # jeżeli strzał został wylosowany
-            if(czyStrzela == 1):
+        enemy.doNastepnegoStrzalu -= 1 #odliczanie do strzału w pętli
+        if(enemy.doNastepnegoStrzalu <= 0): #odliczanie do strzału w pętli
+            czyStrzela = int(random(0,2)) #losowanie czy dany przeciwnik strzela
+            enemy.doNastepnegoStrzalu = 100 #odliczanie do strzału w pętli
+            if(czyStrzela == 1): # jeżeli strzał został wylosowany
                 enemy.shot(True)
             
 
