@@ -14,17 +14,14 @@ class Ship():
         pass
         
     def sketch_ship(self):
-        self.sprite = loadImage('Ship.png')
+        self.sprite = loadImage('Ship.png') # ta grafika nie została dodana do projektu
         
->>>>>>> Stashed changes
 class Player(Ship):
     #position
     #grafika
-    def __(init)__(self):
-        loadImage('Gracz One.png')
+    def __init__(self):
+        loadImage('Gracz One.png') # teraz trzeba ją w oddzielnej metodzie rysować uwzględniając pozycję
         
- 
-    
     def __init__(self):
         # zmienne potrzebne do porusznia eksplozją
         self.a = 380
@@ -70,11 +67,9 @@ class Enemy(Ship):
     def changePosition(self):
         pass
     def changeVisability(self):
-        self.visability = not self.visibility
-        # zmina visability
+        self.visability = not self.visibility # zmina visability
             # sprawdzanie czy wszyscy zestrzeleni (areEnemiesDestroyed)
                 # doliczenie punktów
-        pass
 class Bullet():
     # position - atrybut
     # direction - atrybut
