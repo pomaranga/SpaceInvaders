@@ -109,9 +109,11 @@ class Interface():
     def bulletIntoYou():
         text ('GameOver', 400,300)# wyświetlenie GameOver
     def areEnemiesDestroyed():
-        for enemy in enemyList: # sprawdzanie po kolei listy wrogów i ich widzialności
-            if enemy.visible:
-                return False
+        for enemy in enemyList:
+            if enemy.visability == True:
+                return False;
+        return True
+            # sprawdzanie po kolei listy wrogów i ich widzialności
         # jeżeli wszyscy zbici to wyświelenie wygranej NA EKRANIE GRY     
         print("Brawo! Zwycięstwo!", width/3, height/2) # to jest w konsoli
         return True
