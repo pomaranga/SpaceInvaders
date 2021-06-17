@@ -37,6 +37,10 @@ class Ship():
 class Player(Ship):
     #position
     #grafika
+    def __init)__(self):
+        loadImage('Gracz One')
+        
+ 
     
     def __init__(self):
         # zmienne potrzebne do porusznia eksplozją
