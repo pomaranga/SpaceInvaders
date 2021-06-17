@@ -37,7 +37,7 @@ class Ship():
 class Player(Ship):
     #position
     #grafika
-    def __init)__(self):
+    def __(init)__(self):
         loadImage('Gracz One')
         
  
