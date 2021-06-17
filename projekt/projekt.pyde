@@ -177,6 +177,7 @@ def draw():
         # jeżeli strzał został wylosowany
             if(czyStrzela == 1):
                 enemy.shot(True)
+                #sprawdzam czy działa
 
     # przesunięcie w odpowiednim kierunku pozycji każdego z aktywnych pocisków na ekranie (liście pocisków ekranu)
         # sprawdzenie, czy pozycja vertykalna pocisku jest na wysokości statku - taka jak pozycje vertykalne statków
