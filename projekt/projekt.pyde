@@ -12,6 +12,7 @@ class Ship():
         self.speed = 3    # ustawienie prędkości ruchu pocisku
     def changePosition():
         pass
+<<<<<<< Updated upstream
     def sketch_ship(self): # to należy zmieinć - grafika powinna być w statku wroga i uwzględniać pozycję
         fill(0,0,0)
         rect (0,150,10,40)
@@ -34,6 +35,11 @@ class Ship():
         rect (70,100,10,10)
         rect (40,90,10,10)
         rect (80,90,10,10)
+=======
+    def sketch_ship(self):
+        self.sprite = loadImage('Ship.png')
+        
+>>>>>>> Stashed changes
 class Player(Ship):
     #position
     #grafika
