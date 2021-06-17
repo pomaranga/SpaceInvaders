@@ -150,8 +150,8 @@ def draw():
     player1.sketch_ship()
     b=Bullet()
     b.sketch_bullet()
-    s.Shield()
-    s.sketch.shield()
+    s=Shield()
+    s.sketch_shield()
     
     if keyPressed: 
         #jeżeli strzałka w lewo albo 'a'
