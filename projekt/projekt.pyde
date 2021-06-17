@@ -1,5 +1,5 @@
 '''
-grafiki do stworzenia: statku kosmitów, tła, pociski, animacja wybuchu, ew. 'tarcze/przeszkody'
+grafiki do stworzenia: statku gracza, statków wrogów, tła, pociski, animacja wybuchu, ew. 'tarcze/przeszkody'
 '''
 class Ship():
     #ShotDirection
@@ -7,7 +7,7 @@ class Ship():
     def shot(self, angle):
         fill(25, 255,0)
         rect(0, 20, 20, 20) # tworzymy instancję pocisku i dodajemy do listy sktywnych pocisków ów pocisk
-        self.position = x0ship # ustawienie pozycji dla pocisku na pozycję statku (self.position)
+        self.position = 0 # ustawienie pozycji dla pocisku na pozycję statku (self.position)
         self.angle = 180 # ustawienie kierunku ruchu dla pocisku
         self.speed = 3    # ustawienie prędkości ruchu pocisku
         pass
@@ -125,16 +125,12 @@ class Interface():
         text ('GameOver', 400,300)# wyświetlenie GameOver
         pass
     def areEnemiesDestroyed():
-        global enemies
-    for enemy in enemyList:
-        if enemy.visible:
-            return False
-    return True
-    # sprawdzanie po kolei listy wrogów i ich widzialności
-            # jeżeli wszyscy zbici to wyświelenie wygranej
-       
-if (enemy == 0):
-    print("Brawo! Zwycięstwo!", width/3, height/2)
+        for enemy in enemyList:# sprawdzanie po kolei listy wrogów i ich widzialności
+            if enemy.visible:
+                return False
+        # jeżeli wszyscy zbici to wyświelenie wygranej NA EKRANIE GRY     
+        print("Brawo! Zwycięstwo!", width/3, height/2) # to jest w konsoli
+        return True
     def addPoint():
         self.points += 1
     # metoda wyświetlająca bieżącą punktację
