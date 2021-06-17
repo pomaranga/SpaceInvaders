@@ -12,30 +12,7 @@ class Ship():
         self.speed = 3    # ustawienie prędkości ruchu pocisku
     def changePosition():
         pass
-<<<<<<< Updated upstream
-    def sketch_ship(self): # to należy zmieinć - grafika powinna być w statku wroga i uwzględniać pozycję
-        fill(0,0,0)
-        rect (0,150,10,40)
-        rect (10,150,120,10)
-        rect (120,150,10,40)
-        rect (20,160,90,10)
-        rect (30,170,10,10)
-        rect (90,170,10,10)
-        rect (40,180,10,10)
-        rect (80,180,10,10)
-        rect (10,140,30,10)
-        rect (90,140,30,10)
-        rect (50,140,30,10)
-        rect (20,130,20,10)
-        rect (90,130,20,10)
-        rect (50,130,30,10)
-        rect (30,120,70,10)
-        rect (40,110,50,10)
-        rect (50,100,10,10)
-        rect (70,100,10,10)
-        rect (40,90,10,10)
-        rect (80,90,10,10)
-=======
+        
     def sketch_ship(self):
         self.sprite = loadImage('Ship.png')
         
