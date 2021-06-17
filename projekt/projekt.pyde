@@ -66,7 +66,7 @@ class Player(Ship):
         rect(self.e, self.f, self.i, self.i)
         rect(self.g, self.h, self.i, self.i)
         
- class Shield():
+class Shield():
     
     def sketch_shield(shield):
         fill(160, 0, 0)
