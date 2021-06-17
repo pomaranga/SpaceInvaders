@@ -118,6 +118,7 @@ class Interface():
     
 def setup(): # ta funkcja może występować tylko raz w programie
     size(800, 600)
+    loadImage("data\background.png")
     global enemyList, player1
     player1 = Player()
     enemyList = []
@@ -125,7 +126,6 @@ def setup(): # ta funkcja może występować tylko raz w programie
         enemyList.append(Enemy(0+num*20))
     # proponuję jeszcze tu listę strzał
 def draw():
-    background(60)
     # te wyświetlania trzeba jeszcze 'posprzątać' w miejsca docelowe
     player1.sketch_explosion()
     player1.sketch_ship()
