@@ -38,7 +38,7 @@ class Player(Ship):
     #position
     #grafika
     def __(init)__(self):
-        loadImage('Gracz One')
+        loadImage('Gracz One.png')
         
  
     
