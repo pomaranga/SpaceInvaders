@@ -99,6 +99,7 @@ class Enemy(Ship):
     def changePosition(self):
         pass
     def changeVisability(self):
+        self.visability = not self.visability
         # zmina visability
             # sprawdzanie czy wszyscy zestrzeleni (areEnemiesDestroyed)
                 # doliczenie punktów
@@ -125,11 +126,11 @@ class Interface():
         text ('GameOver', 400,300)# wyświetlenie GameOver
         pass
     def areEnemiesDestroyed():
-        global enemies
-    for enemy in enemyList:
-        if enemy.visible:
-            return False
-    return True
+        for enemy in enemyList:
+            if enemy.visability == True:
+                return False;
+            
+        return True
     # sprawdzanie po kolei listy wrogów i ich widzialności
             # jeżeli wszyscy zbici to wyświelenie wygranej
        
