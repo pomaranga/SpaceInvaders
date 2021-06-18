@@ -67,7 +67,7 @@ class Enemy(Ship):
     def changePosition(self):
         pass
     def changeVisability(self):
-        self.visability = not self.visibility # zmina visability
+        self.visability = False # zmina visability
             # sprawdzanie czy wszyscy zestrzeleni (areEnemiesDestroyed)
                 # doliczenie punktów
 class Bullet():
