@@ -20,8 +20,9 @@ class Player(Ship):
     #position
     #grafika
     def __init__(self):
-        loadImage('Gracz One.png') # teraz trzeba ją w oddzielnej metodzie rysować uwzględniając pozycję
-        
+        self.sprite = loadImage('Gracz One.png') # teraz trzeba ją w oddzielnej metodzie rysować uwzględniając pozycję
+        self.positionH = 400
+        self.positionV = 550
     def __init__(self):
         # zmienne potrzebne do porusznia eksplozją
         self.a = 380
@@ -50,7 +51,10 @@ class Player(Ship):
         rect(self.e, self.f, self.i, self.i)
         rect(self.g, self.h, self.i, self.i)
         
-    def changePosition(Left):
+    def sketch_player(self):
+        image(self.sprite, self.positionH, self.positionV)
+    
+    changePosition(Left):
         if Left:
             self.positionHorizontal -= 3
         else:
