@@ -53,15 +53,14 @@ class Player(Ship):
         
     def sketch_player(self):
         image(self.sprite, self.positionH, self.positionV)
-    
-    changePosition(Left):
-        if Left:
-            self.positionHorizontal -= 3
-        else:
-            self.positionHorizontal += 3
+        changePosition(Left):
+            if Left:
+                self.positionHorizontal -= 3
+            else:
+                self.positionHorizontal += 3
         
 class Enemy(Ship):
-    doNastepnegoStrzalu = 0 # trzymajmy się tego, że po angielsku nazewnictwo :)
+    nextShot = 0 # trzymajmy się tego, że po angielsku nazewnictwo :)
     quantity = 3
     def __init__(self, pos):
         self.positionHorizontal = pos
@@ -111,10 +110,12 @@ class Interface():
         for enemy in enemyList:
             if enemy.visability == True:
                 return False;
+            elif enemy.visability == False: # sprawdzanie po kolei listy wrogów i ich widzialności
+                return True;
         return True
-            # sprawdzanie po kolei listy wrogów i ich widzialności
+            
         # jeżeli wszyscy zbici to wyświelenie wygranej NA EKRANIE GRY     
-        print("Brawo! Zwycięstwo!", width/3, height/2) # to jest w konsoli
+        text("Brawo! Zwycięstwo!", width/3, height/2) # to jest w konsoli
         return True
     def addPoint():
         self.points += 1
