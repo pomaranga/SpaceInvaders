@@ -75,7 +75,10 @@ class Player(Ship):
         rect(self.g, self.h, self.i, self.i)
  
     def sketch_player(self):
-        image(self.sprite, self.positionH, self.positionV)
+        self.sprite = loadImage('Gracz One.png')  
+        self.positionH = 400
+        self.positionV = 500
+        image(self.sprite, self.positionH, self.positionV, 100, 80)
  
  
  
@@ -159,6 +162,7 @@ def setup(): # ta funkcja może występować tylko raz w programie
     # proponuję jeszcze tu listę strzał
 def draw():
     # te wyświetlania trzeba jeszcze 'posprzątać' w miejsca docelowe
+    player1.sketch_player()
     player1.shooting_stars()
     player1.sketch_explosion()
     b=Bullet()
