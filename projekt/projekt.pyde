@@ -38,6 +38,25 @@ class Player(Ship):
         self.g = 420
         self.h = 300
         self.i = 40
+        # zmienne spadających gwiazd
+        self.aa = 5
+        self.bb = 5
+        self.cc = 1
+        self.dd = 100
+        self.ee = 300
+    #grafika - spadające_gwiazdy_animacja  
+    def shooting_stars(self): 
+        self.aa = self.aa + 5
+        self.bb = self.bb + 5 
+        self.cc = self.cc + 0.05
+        self.dd = self.dd + 5
+        self.ee = self.ee + 5    
+            
+        fill(255, 255, 100)
+        stroke(255, 255, 200)
+        rect(self.aa, self.bb, self.cc, self.cc)
+        rect(self.dd, self.ee, self.cc, self.cc)   
+        
     #grafika - eksplozja_animacja - trzeba uwzględnić pozycję z której ma eksplozja nastąpić
     def sketch_explosion(self):
         self.a = self.a - 5
@@ -140,6 +159,7 @@ def setup(): # ta funkcja może występować tylko raz w programie
     # proponuję jeszcze tu listę strzał
 def draw():
     # te wyświetlania trzeba jeszcze 'posprzątać' w miejsca docelowe
+    player1.shooting_stars()
     player1.sketch_explosion()
     b=Bullet()
     b.sketch_bullet()
