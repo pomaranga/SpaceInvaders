@@ -9,7 +9,14 @@ class Ship():
         rect(0, 20, 20, 20) # tworzymy instancję pocisku i dodajemy do listy sktywnych pocisków ów pocisk
         self.position = 0 # ustawienie pozycji dla pocisku na pozycję statku (self.position)
         self.angle = 180 # ustawienie kierunku ruchu dla pocisku
-        self.speed = 3    # ustawienie prędkości ruchu pocisku
+        self.speed = 3  # ustawienie prędkości ruchu pocisku
+  def update_shot(self):
+      self.position -= 3
+      if (random.randint(0, 10)==0): #losowe dodawanie strzału
+          add.shot() 
+      if (self.position == 600):  #usuwanie strzału gdy dotknie krawędzi okna 
+          remove
+    
     def changePosition():
         pass
         
