@@ -10,7 +10,7 @@ class Ship():
 def update_shot(self):
     self.position -= 3
     if (random.randint(0, 10)==0): #losowe dodawanie strzału - to już było napisane..
-        add.shot() # ale do czego?
+        add.shot(True) # ale do czego?
     if (self.position == 600):  #usuwanie strzału gdy dotknie krawędzi okna 
         remove # trzebaby usubwać coś konkretnego i z konkretnej kolekcji
  
@@ -23,10 +23,12 @@ def update_shot(self):
 class Player(Ship):
     #position
     #grafika
+    # poczatkowa pozycja
+    positionH = 400
+    positionV = 550
     def __init__(self):
         self.sprite = loadImage('Gracz One.png') # teraz trzeba ją w oddzielnej metodzie rysować uwzględniając pozycję
-        self.positionH = 400
-        self.positionV = 550
+
     def __init__(self):
         # zmienne potrzebne do porusznia eksplozją
         self.a = 380
@@ -73,11 +75,15 @@ class Player(Ship):
         rect(self.c, self.d, self.i, self.i)
         rect(self.e, self.f, self.i, self.i)
         rect(self.g, self.h, self.i, self.i)
- 
+        
+    def changePositionH(self, offset):
+        self.positionH = self.positionH + offset;
+
+    def changePositionV(self, offset):
+        self.positionV = self.positionV + offset;
+
     def sketch_player(self):
         self.sprite = loadImage('Gracz One.png')  
-        self.positionH = 400
-        self.positionV = 500
         image(self.sprite, self.positionH, self.positionV, 100, 80)
  
  
@@ -169,14 +175,19 @@ def draw():
     b.sketch_bullet()
     s=Shield()
     s.sketch_shield()
+    bullet_group = set()
  
     if keyPressed: 
         if key == 'a' or keyCode == 37: #jeżeli strzałka w lewo albo 'a'
-            player1.changePosition(True)
+            player1.changePositionH(-5)
         if key == 'd' or keyCode == 39: #jeżeli strzałka w prawo albo 'd'
-            player1.changePosition(False)
-        if key == " " or key == ENTER or keyCode == 40: # jeżeli spacja lub enter lub strzałka w dół
-            bullet_group.add(player1.shot()) # dodać kierunek strzelania jako argument
+            player1.changePositionH(5)
+        if key == 'w' or keyCode == 38: #jeżeli strzałka w gore albo 'w'
+            player1.changePositionV(-5)
+        if key == 's' or keyCode == 40: #jeżeli strzałka w dol albo 's'
+            player1.changePositionV(5)
+        if key == " " or key == ENTER: # jeżeli spacja lub enter lub strzałka w dół
+            bullet_group.add(player1.shot(True)) # dodać kierunek strzelania jako argument
  
     for enemy in enemyList:
         enemy.changePosition()
