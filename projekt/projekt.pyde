@@ -65,6 +65,8 @@ class Player(Ship):
                 self.positionHorizontal -= 3
             else:
                 self.positionHorizontal += 3
+     
+     
         
 class Enemy(Ship):
     nextShot = 0 # trzymajmy się tego, że po angielsku nazewnictwo :)
@@ -81,9 +83,12 @@ class Enemy(Ship):
             # sprawdzanie czy wszyscy zestrzeleni (areEnemiesDestroyed)
                 # doliczenie punktów
 class Bullet():
-    # position - atrybut
+    def __init__(self,pos_x,pos_y):# position - atrybut
+        self.image.fill((255,0,0))
+        self.rect=self.image.get_rect(center = (pos_x,pox_y))
     # direction - atrybut
-    # movement - metoda
+    def update(self): # movement - metoda
+        self.rect.x += 5 # szybkosc lotu pocisku
     def sketch_bullet(self):
         fill(255, 0, 0);
         stroke(0);
@@ -145,6 +150,7 @@ def draw():
     b.sketch_bullet()
     s=Shield()
     s.sketch_shield()
+    bullet_group = bullets.Group()
     
     if keyPressed: 
         if key == 'a' or keyCode == 37: #jeżeli strzałka w lewo albo 'a'
@@ -152,7 +158,7 @@ def draw():
         if key == 'd' or keyCode == 39: #jeżeli strzałka w prawo albo 'd'
             player1.changePosition(False)
         if key == " " or key == ENTER or keyCode == 40: # jeżeli spacja lub enter lub strzałka w dół
-            player1.shot() # dodać kierunek strzelania jako argument
+            bullet_group.add(player1.shot()) # dodać kierunek strzelania jako argument
             
     for enemy in enemyList:
         enemy.changePosition()
