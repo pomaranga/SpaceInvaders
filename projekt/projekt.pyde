@@ -7,21 +7,13 @@ class Ship():
         self.position = 0 # ustawienie pozycji dla pocisku na pozycję statku (self.position)
         self.angle = 180 # ustawienie kierunku ruchu dla pocisku
         self.speed = 3  # ustawienie prędkości ruchu pocisku
-<<<<<<< HEAD
+
     def update_shot(self):
         self.position -= 3
         if (random.randint(0, 10)==0): #losowe dodawanie strzału - to już było napisane..
            add.shot() # ale do czego?
         if (self.position == 600):  #usuwanie strzału gdy dotknie krawędzi okna 
            remove # trzebaby usubwać coś konkretnego i z konkretnej kolekcji
-=======
-def update_shot(self):
-    self.position -= 3
-    if (random.randint(0, 10)==0): #losowe dodawanie strzału - to już było napisane..
-        add.shot(True) # ale do czego?
-    if (self.position == 600):  #usuwanie strzału gdy dotknie krawędzi okna 
-        remove # trzebaby usubwać coś konkretnego i z konkretnej kolekcji
->>>>>>> dacd7fe48f8b7b0b8f26cd75dfc84cf469a198a5
  
     def changePosition():
         pass
