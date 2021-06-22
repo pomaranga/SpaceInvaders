@@ -9,10 +9,10 @@ class Ship():
         self.speed = 3  # ustawienie prędkości ruchu pocisku
 def update_shot(self):
     self.position -= 3
-    if (random.randint(0, 10)==0): #losowe dodawanie strzału
-        add.shot() 
+    if (random.randint(0, 10)==0): #losowe dodawanie strzału - to już było napisane..
+        add.shot() # ale do czego?
     if (self.position == 600):  #usuwanie strzału gdy dotknie krawędzi okna 
-        remove
+        remove # trzebaby usubwać coś konkretnego i z konkretnej kolekcji
  
     def changePosition():
         pass
@@ -61,7 +61,7 @@ class Player(Ship):
  
  
 class Enemy(Ship):
-    nextShot = 0 # trzymajmy się tego, że po angielsku nazewnictwo :)
+    nextShot = 0
     quantity = 3
     def __init__(self, pos):
         self.positionHorizontal = pos
@@ -76,7 +76,7 @@ class Enemy(Ship):
                 # doliczenie punktów
 class Bullet():
     def update(self): # movement - metoda
-        self.rect.x += 5 # szybkosc lotu pocisku
+        self.x += 5 # szybkosc lotu pocisku
     def sketch_bullet(self):
         fill(255, 0, 0);
         stroke(0);
@@ -122,13 +122,8 @@ class Interface():
     def areEnemiesDestroyed():
         for enemy in enemyList:
             if enemy.visability == True:
-                return False;
-            elif enemy.visability == False: # sprawdzanie po kolei listy wrogów i ich widzialności
-                return True;
-        return True
- 
-        # jeżeli wszyscy zbici to wyświelenie wygranej NA EKRANIE GRY     
-        text("Brawo! Zwycięstwo!", width/3, height/2) # to jest w konsoli
+                return False;   
+        text("Brawo! Zwycięstwo!", width/3, height/2)
         return True
     def addPoint():
         self.points += 1
