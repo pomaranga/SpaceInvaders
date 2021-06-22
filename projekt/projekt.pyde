@@ -89,7 +89,7 @@ class Bullet():
         curveVertex(30, 30); 
         curveVertex(80, 80);
         endShape(CLOSE);
-    def update_movement(self, int x, int y):
+    def update_movement(self, x, y):
         fill(255, 0, 0);
         stroke(0);
         beginShape();
