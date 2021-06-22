@@ -20,15 +20,15 @@ class Ship():
  
     def sketch_ship(self):
         self.sprite = loadImage('Ship.png')# ta grafika nie została dodana do projektu
-        self.positionHorizontal = 400
+        self.positionHorizontal = 350
         self.positionVertical = 100
         
 class Player(Ship):
     #position
     #grafika
     # poczatkowa pozycja
-    positionH = 400
-    positionV = 550
+    positionH = 350
+    positionV = 518
     def __init__(self):
         self.sprite = loadImage('Gracz One.png') # teraz trzeba ją w oddzielnej metodzie rysować uwzględniając pozycję
 
