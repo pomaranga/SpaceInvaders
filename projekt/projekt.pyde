@@ -1,6 +1,3 @@
-'''
-grafiki do stworzenia: statku gracza, statków wrogów, tła, pociski, animacja wybuchu, ew. 'tarcze/przeszkody'
-'''
 class Ship():
     #ShotDirection
     #sprite
@@ -16,13 +13,13 @@ def update_shot(self):
         add.shot() 
     if (self.position == 600):  #usuwanie strzału gdy dotknie krawędzi okna 
         remove
-    
+ 
     def changePosition():
         pass
-        
+ 
     def sketch_ship(self):
         self.sprite = loadImage('Ship.png') # ta grafika nie została dodana do projektu
-        
+ 
 class Player(Ship):
     #position
     #grafika
@@ -57,17 +54,12 @@ class Player(Ship):
         rect(self.c, self.d, self.i, self.i)
         rect(self.e, self.f, self.i, self.i)
         rect(self.g, self.h, self.i, self.i)
-        
+ 
     def sketch_player(self):
         image(self.sprite, self.positionH, self.positionV)
-        changePosition(Left):
-            if Left:
-                self.positionHorizontal -= 3
-            else:
-                self.positionHorizontal += 3
-     
-     
-        
+ 
+ 
+ 
 class Enemy(Ship):
     nextShot = 0 # trzymajmy się tego, że po angielsku nazewnictwo :)
     quantity = 3
@@ -83,10 +75,6 @@ class Enemy(Ship):
             # sprawdzanie czy wszyscy zestrzeleni (areEnemiesDestroyed)
                 # doliczenie punktów
 class Bullet():
-    def __init__(self,pos_x,pos_y):# position - atrybut
-        self.image.fill((255,0,0))
-        self.rect=self.image.get_rect(center = (pos_x,pox_y))
-    # direction - atrybut
     def update(self): # movement - metoda
         self.rect.x += 5 # szybkosc lotu pocisku
     def sketch_bullet(self):
@@ -102,16 +90,16 @@ class Bullet():
         curveVertex(80, 80);
         endShape(CLOSE);
 class Shield():
-    
+ 
     def sketch_shield(shield):
         fill(160, 0, 0)
         stroke(10, 150, 0)
         rect(80,400,120,50)
         rect(340,400,120,50)
         rect(600,400,120,50)
-            
+ 
         shield.visability = True # to raczej w konstruktorze powinno być
-        
+ 
     def changeVisability(shield):
         pass
 class Interface():
@@ -125,14 +113,14 @@ class Interface():
             elif enemy.visability == False: # sprawdzanie po kolei listy wrogów i ich widzialności
                 return True;
         return True
-            
+ 
         # jeżeli wszyscy zbici to wyświelenie wygranej NA EKRANIE GRY     
         text("Brawo! Zwycięstwo!", width/3, height/2) # to jest w konsoli
         return True
     def addPoint():
         self.points += 1
     # metoda wyświetlająca bieżącą punktację
-    
+ 
 def setup(): # ta funkcja może występować tylko raz w programie
     size(800, 600)
     loadImage("data\background.png")
@@ -145,13 +133,11 @@ def setup(): # ta funkcja może występować tylko raz w programie
 def draw():
     # te wyświetlania trzeba jeszcze 'posprzątać' w miejsca docelowe
     player1.sketch_explosion()
-    player1.sketch_ship()
     b=Bullet()
     b.sketch_bullet()
     s=Shield()
     s.sketch_shield()
-    bullet_group = bullets.Group()
-    
+ 
     if keyPressed: 
         if key == 'a' or keyCode == 37: #jeżeli strzałka w lewo albo 'a'
             player1.changePosition(True)
@@ -159,22 +145,22 @@ def draw():
             player1.changePosition(False)
         if key == " " or key == ENTER or keyCode == 40: # jeżeli spacja lub enter lub strzałka w dół
             bullet_group.add(player1.shot()) # dodać kierunek strzelania jako argument
-            
+ 
     for enemy in enemyList:
         enemy.changePosition()
-    
-        enemy.doNastepnegoStrzalu -= 1 #odliczanie do strzału w pętli
-        if(enemy.doNastepnegoStrzalu <= 0): #odliczanie do strzału w pętli
-            czyStrzela = int(random(0,2)) #losowanie czy dany przeciwnik strzela
-            enemy.doNastepnegoStrzalu = 100 #odliczanie do strzału w pętli
-            if(czyStrzela == 1): # jeżeli strzał został wylosowany
-                enemy.shot(True)
-            
-
+ 
+        enemy.nextShot -= 1 #odliczanie do strzału w pętli
+        if enemy.nextShot <= 0: #odliczanie do strzału w pętli
+            isShooting = int(random(0,2)) #losowanie czy dany przeciwnik strzela
+            enemy.nextShot = 100 #odliczanie do strzału w pętli
+            if isShooting == 1: # jeżeli strzał został wylosowany
+               enemy.shot(True)
+ 
+ 
     # przesunięcie w odpowiednim kierunku pozycji każdego z aktywnych pocisków na ekranie (liście pocisków ekranu)
         # sprawdzenie, czy pozycja vertykalna pocisku jest na wysokości statku - taka jak pozycje vertykalne statków
             # sprawdzenie, czy dotyka gracza lub przeciwnika
                 # sprawdzenie, czy kierunek strzały jest zgodny ze statkiem którego dotyka
                     # zależnie od tego którego statku dotyka, wywołanie bulletIntoYou lub zmiana visability wroga
-        
+ 
     # wyświetlenie aktualnej liczby punktów
