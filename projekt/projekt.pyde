@@ -7,19 +7,30 @@ class Ship():
         self.position = 0 # ustawienie pozycji dla pocisku na pozycję statku (self.position)
         self.angle = 180 # ustawienie kierunku ruchu dla pocisku
         self.speed = 3  # ustawienie prędkości ruchu pocisku
+<<<<<<< HEAD
+    def update_shot(self):
+        self.position -= 3
+        if (random.randint(0, 10)==0): #losowe dodawanie strzału - to już było napisane..
+           add.shot() # ale do czego?
+        if (self.position == 600):  #usuwanie strzału gdy dotknie krawędzi okna 
+           remove # trzebaby usubwać coś konkretnego i z konkretnej kolekcji
+=======
 def update_shot(self):
     self.position -= 3
     if (random.randint(0, 10)==0): #losowe dodawanie strzału - to już było napisane..
         add.shot(True) # ale do czego?
     if (self.position == 600):  #usuwanie strzału gdy dotknie krawędzi okna 
         remove # trzebaby usubwać coś konkretnego i z konkretnej kolekcji
+>>>>>>> dacd7fe48f8b7b0b8f26cd75dfc84cf469a198a5
  
     def changePosition():
         pass
  
     def sketch_ship(self):
-        self.sprite = loadImage('Ship.png') # ta grafika nie została dodana do projektu
- 
+        self.sprite = loadImage('Ship.png')# ta grafika nie została dodana do projektu
+        self.positionHorizontal = 400
+        self.positionVertical = 100
+        
 class Player(Ship):
     #position
     #grafika
@@ -160,8 +171,9 @@ class Interface():
 def setup(): # ta funkcja może występować tylko raz w programie
     size(800, 600)
     loadImage("data\background.png")
-    global enemyList, player1
+    global enemyList, player1, ship1
     player1 = Player()
+    ship1 = Ship()
     enemyList = []
     for num, i in enumerate(range(Enemy.quantity)):
         enemyList.append(Enemy(0+num*20))
@@ -171,6 +183,7 @@ def draw():
     player1.sketch_player()
     player1.shooting_stars()
     player1.sketch_explosion()
+    ship1.sketch_ship()
     b=Bullet()
     b.sketch_bullet()
     s=Shield()
