@@ -89,6 +89,19 @@ class Bullet():
         curveVertex(30, 30); 
         curveVertex(80, 80);
         endShape(CLOSE);
+    def update_movement(self, int x, int y):
+        fill(255, 0, 0);
+        stroke(0);
+        beginShape();
+        curveVertex(50+x, 60+y);
+        curveVertex(30+x, 30+y);
+        curveVertex(75+x, 60+y);
+        curveVertex(100+x, 100+y);
+        curveVertex(50+x, 120+y);
+        curveVertex(30+x, 30+y); 
+        curveVertex(80+x, 80+y);
+        endShape(CLOSE);
+
 class Shield():
  
     def sketch_shield(shield):
