@@ -9,7 +9,7 @@ class Ship():
         self.speed = 3  # ustawienie prędkości ruchu pocisku
 
     def update_shot(self):
-        self.position -= 3
+        self.position=player1.position
         if (self.position == 600):  #usuwanie strzału gdy dotknie krawędzi okna 
            remove # trzebaby usubwać coś konkretnego i z konkretnej kolekcji
         
@@ -87,7 +87,7 @@ class Bullet():
     def update(self): # movement - metoda
         self.x += 5 # szybkosc lotu pocisku
     def update_shot(self):
-        self.position -= 3
+        self.position=player1.position
         if (self.position == 600):
             bullet_group.pop(self.bullet)
     def sketch_bullet(self):
