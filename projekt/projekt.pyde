@@ -97,15 +97,23 @@ class Enemy(Ship):
         self.positionVertical = 15
         self.movementDirection = 1
         self.visability = True
+        self.sprite = loadImage('Ship.png')
     def changePosition(self):
         pass
     def changeVisability(self):
         self.visability = False # zmina visability
             # sprawdzanie czy wszyscy zestrzeleni (areEnemiesDestroyed)
                 # doliczenie punktów
+    def sketch_ship(self):
+        image(self.sprite, 0, 0)
+        
 class Bullet():
     def update(self): # movement - metoda
         self.x += 5 # szybkosc lotu pocisku
+    def update_shot(self):
+        self.position -= 3
+        if (self.position == 600):
+            bullet_group.pop(self.bullet)
     def sketch_bullet(self):
         fill(255, 0, 0);
         stroke(0);
