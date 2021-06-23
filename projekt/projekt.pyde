@@ -10,18 +10,8 @@ class Ship():
 
     def update_shot(self):
         self.position -= 3
-        if (random.randint(0, 10)==0): #losowe dodawanie strzału - to już było napisane..
-           add.shot() # ale do czego?
         if (self.position == 600):  #usuwanie strzału gdy dotknie krawędzi okna 
            remove # trzebaby usubwać coś konkretnego i z konkretnej kolekcji
- 
-    def changePosition():
-        pass
- 
-    def sketch_ship(self):
-        self.sprite = loadImage('Ship.png')# ta grafika nie została dodana do projektu, a ładowana powinna być raz w konstruktorze
-        self.positionHorizontal = 350
-        self.positionVertical = 100
         
 class Player(Ship):
     #position
@@ -87,8 +77,6 @@ class Player(Ship):
         self.sprite = loadImage('Gracz One.png')  
         image(self.sprite, self.positionH, self.positionV, 100, 80)
  
- 
- 
 class Enemy(Ship):
     nextShot = 0
     quantity = 3
@@ -97,7 +85,7 @@ class Enemy(Ship):
         self.positionVertical = 15
         self.movementDirection = 1
         self.visability = True
-        self.sprite = loadImage('Ship.png')
+        self.sprite = loadImage('Ship.png') # 4tys px to zdecydowanie za dużo, grafika powinna być raczej rozmiaru 30... poprawiłam, bo nie nadążało ładować i rzucało out of memory, zmieniłąm też kolor, bo nie było widać na tle
     def changePosition(self):
         pass
     def changeVisability(self):
@@ -105,7 +93,7 @@ class Enemy(Ship):
             # sprawdzanie czy wszyscy zestrzeleni (areEnemiesDestroyed)
                 # doliczenie punktów
     def sketch_ship(self):
-        image(self.sprite, 0, 0)
+        image(self.sprite, self.positionHorizontal, self.positionVertical)
         
 class Bullet():
     def update(self): # movement - metoda
@@ -168,24 +156,23 @@ class Interface():
  
 def setup(): # ta funkcja może występować tylko raz w programie
     size(800, 600)
-    loadImage("data\background.jpg")
-    global enemyList, player1, ship1, bullet_group
+    global enemyList, player1, ship1, bullet_group, tlo, s
+    tlo = loadImage("background.jpg") # rozdzielczość 300 ustawiamy dla wydruków, do wyświetlania 72...
     player1 = Player()
-    ship1 = Ship()
     enemyList = []
     for num, i in enumerate(range(Enemy.quantity)):
-        enemyList.append(Enemy(0+num*20))
+        enemyList.append(Enemy(0+num*100))
     # proponuję jeszcze tu listę strzał
     bullet_group = set()
+    s=Shield()
 def draw():
     # te wyświetlania trzeba jeszcze 'posprzątać' w miejsca docelowe
+    image(tlo, 0, 0)
     player1.sketch_player()
     player1.shooting_stars()
     player1.sketch_explosion()
-    ship1.sketch_ship()
     b=Bullet()
     b.sketch_bullet()
-    s=Shield()
     s.sketch_shield()
  
     if keyPressed: 
@@ -198,11 +185,11 @@ def draw():
         if key == 's' or keyCode == 40: #jeżeli strzałka w dol albo 's'
             player1.changePositionV(5)
         if key == " " or key == ENTER: # jeżeli spacja lub enter lub strzałka w dół
-            bullet_group.add(player1.shot(0)) # dodać kierunek strzelania jako argument
+            bullet_group.add(player1.shot(0)) # dodawać do listy tzeba wewnątz metody shot, nie tutaj
  
     for enemy in enemyList:
         enemy.changePosition()
- 
+        enemy.sketch_ship()
         enemy.nextShot -= 1 #odliczanie do strzału w pętli
         if enemy.nextShot <= 0: #odliczanie do strzału w pętli
             isShooting = int(random(0,2)) #losowanie czy dany przeciwnik strzela
