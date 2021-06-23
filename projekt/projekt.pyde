@@ -160,7 +160,7 @@ class Interface():
  
 def setup(): # ta funkcja może występować tylko raz w programie
     size(800, 600)
-    loadImage("data\background.png")
+    loadImage("data\background.jpg")
     global enemyList, player1, ship1, bullet_group
     player1 = Player()
     ship1 = Ship()
