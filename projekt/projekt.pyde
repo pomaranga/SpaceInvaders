@@ -128,7 +128,7 @@ class RepairKit():
 class Shield():
  
     def sketch_shield(shield):
-        fill(160, 0, 0)
+        fill(102, 255, 255)
         stroke(10, 150, 0)
         rect(80,400,120,50)
         rect(340,400,120,50)
