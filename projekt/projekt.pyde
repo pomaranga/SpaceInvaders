@@ -189,11 +189,11 @@ def draw():
     for enemy in enemyList:
         enemy.changePosition()
         enemy.sketch_ship()
-        enemy.nextShot -= 1 #odliczanie do strzału w pętli
-        if enemy.nextShot <= 0: #odliczanie do strzału w pętli
-            isShooting = int(random(0,2)) #losowanie czy dany przeciwnik strzela
-            enemy.nextShot = 100 #odliczanie do strzału w pętli
-            if isShooting == 1: # jeżeli strzał został wylosowany
+        enemy.nextShot -= 1 #loop countdown to shot
+        if enemy.nextShot <= 0: #loop countdown to shot
+            isShooting = int(random(0,2)) #drawing whether the opponent shoots
+            enemy.nextShot = 100 #loop countdown to shot
+            if isShooting == 1: # if the shot is drawn
                enemy.shot(True)
  
     for bullet in bullet_group:
