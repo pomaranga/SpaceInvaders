@@ -115,6 +115,16 @@ class Bullet():
         curveVertex(80+x, 80+y);
         endShape(CLOSE);
 
+class RepairKit():
+
+    def sketch_RepairKit():
+        self.sprite = loadImage('RepairKit.png')
+        self.position = 430, 500
+        self.visability = False
+    
+    
+    
+
 class Shield():
  
     def sketch_shield(shield):
@@ -144,7 +154,7 @@ class Interface():
  
 def setup(): # ta funkcja może występować tylko raz w programie
     size(800, 600)
-    global enemyList, player1, ship1, bullet_group, tlo, s
+    global enemyList, player1, ship1, bullet_group, tlo, s, RepairKit
     tlo = loadImage("background.jpg") # rozdzielczość 300 ustawiamy dla wydruków, do wyświetlania 72...
     player1 = Player()
     enemyList = []
@@ -161,6 +171,8 @@ def draw():
     player1.sketch_explosion()
     b=Bullet()
     s.sketch_shield()
+    RepairKit.sketch_RepairKit
+
  
     if keyPressed: 
         if key == 'a' or keyCode == 37: #jeżeli strzałka w lewo albo 'a'
