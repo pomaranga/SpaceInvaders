@@ -52,20 +52,8 @@ class Player(Ship):
         
     #grafika - eksplozja_animacja - trzeba uwzględnić pozycję z której ma eksplozja nastąpić
     def sketch_explosion(self):
-        self.a = self.a - 5
-        self.b = self.b - 5
-        self.c = self.c + 5
-        self.d = self.d - 5
-        self.e = self.e - 5
-        self.f = self.f + 5
-        self.g = self.g + 5
-        self.h = self.h + 5
-        fill(255, 150, 0)
-        stroke(255, 150, 0)
-        rect(self.a, self.b, self.i, self.i)
-        rect(self.c, self.d, self.i, self.i)
-        rect(self.e, self.f, self.i, self.i)
-        rect(self.g, self.h, self.i, self.i)
+        self.sprite = loadImage('explosion.png')
+        image(self.sprite, self.positionH-15, self.positionV-15)
         
     def changePositionH(self, offset):
         self.positionH = self.positionH + offset;
@@ -172,7 +160,6 @@ def draw():
     player1.shooting_stars()
     player1.sketch_explosion()
     b=Bullet()
-    b.sketch_bullet()
     s.sketch_shield()
  
     if keyPressed: 
@@ -197,7 +184,8 @@ def draw():
             if isShooting == 1: # jeżeli strzał został wylosowany
                enemy.shot(True)
  
- 
+    for bullet in bullet_group:
+        b.sketch_bullet()
     # przesunięcie w odpowiednim kierunku pozycji każdego z aktywnych pocisków na ekranie (liście pocisków ekranu)
         # sprawdzenie, czy pozycja vertykalna pocisku jest na wysokości statku - taka jak pozycje vertykalne statków
             # sprawdzenie, czy dotyka gracza lub przeciwnika
