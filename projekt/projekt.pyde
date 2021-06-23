@@ -19,7 +19,7 @@ class Ship():
         pass
  
     def sketch_ship(self):
-        self.sprite = loadImage('Ship.png')# ta grafika nie została dodana do projektu
+        self.sprite = loadImage('Ship.png')# ta grafika nie została dodana do projektu, a ładowana powinna być raz w konstruktorze
         self.positionHorizontal = 350
         self.positionVertical = 100
         
@@ -29,10 +29,8 @@ class Player(Ship):
     # poczatkowa pozycja
     positionH = 350
     positionV = 518
-    def __init__(self):
+    def __init__(self): 
         self.sprite = loadImage('Gracz One.png') # teraz trzeba ją w oddzielnej metodzie rysować uwzględniając pozycję
-
-    def __init__(self):
         # zmienne potrzebne do porusznia eksplozją
         self.a = 380
         self.b = 260
@@ -163,13 +161,14 @@ class Interface():
 def setup(): # ta funkcja może występować tylko raz w programie
     size(800, 600)
     loadImage("data\background.png")
-    global enemyList, player1, ship1
+    global enemyList, player1, ship1, bullet_group
     player1 = Player()
     ship1 = Ship()
     enemyList = []
     for num, i in enumerate(range(Enemy.quantity)):
         enemyList.append(Enemy(0+num*20))
     # proponuję jeszcze tu listę strzał
+    bullet_group = set()
 def draw():
     # te wyświetlania trzeba jeszcze 'posprzątać' w miejsca docelowe
     player1.sketch_player()
@@ -180,7 +179,6 @@ def draw():
     b.sketch_bullet()
     s=Shield()
     s.sketch_shield()
-    bullet_group = set()
  
     if keyPressed: 
         if key == 'a' or keyCode == 37: #jeżeli strzałka w lewo albo 'a'
@@ -192,7 +190,7 @@ def draw():
         if key == 's' or keyCode == 40: #jeżeli strzałka w dol albo 's'
             player1.changePositionV(5)
         if key == " " or key == ENTER: # jeżeli spacja lub enter lub strzałka w dół
-            bullet_group.add(player1.shot(True)) # dodać kierunek strzelania jako argument
+            bullet_group.add(player1.shot(0)) # dodać kierunek strzelania jako argument
  
     for enemy in enemyList:
         enemy.changePosition()
