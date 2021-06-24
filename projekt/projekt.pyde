@@ -75,7 +75,16 @@ class Enemy(Ship):
         self.visability = True
         self.sprite = loadImage('Ship.png') # 4tys px to zdecydowanie za dużo, grafika powinna być raczej rozmiaru 30... poprawiłam, bo nie nadążało ładować i rzucało out of memory, zmieniłąm też kolor, bo nie było widać na tle
     def changePosition(self):
-        self.positionHorizontal += 2
+        if self.positionHorizontal < 0:
+            self.positionVertical += 50 
+            self.movementDirection = 1
+        if self.positionHorizontal > 700:
+            self.positionVertical += 50
+            self.movementDirection = 0
+        if self.movementDirection == 0:
+            self.positionHorizontal -= 2
+        if self.movementDirection == 1:
+            self.positionHorizontal += 2
     def changeVisability(self):
         self.visability = False # zmina visability
             # sprawdzanie czy wszyscy zestrzeleni (areEnemiesDestroyed)
