@@ -145,7 +145,7 @@ class Bullet():
 class RepairKit():
 
     def sketch_RepairKit():
-        self.sprite = loadImage('RepairKit.png')
+        self.sprite = loadImage('RepairKit.png') # to tylko załadowanie grafiki, nie rysowanie, powinnodziać isę raz, nie co klatkę
         self.position = 430, 500
         self.visability = False
 
@@ -164,7 +164,7 @@ class Shield():
         pass
 class Interface():
     points = 0
-    def bulletIntoYou(self):
+    def bulletOrShipIntoYou(self):
         text ('GameOver', 400,300)# wyświetlenie GameOver
     def areEnemiesDestroyed(self):
         for enemy in enemyList:
@@ -193,11 +193,10 @@ def draw():
     image(tlo, 0, 0)
     player1.sketch_player()
     player1.shooting_stars()
-    player1.sketch_explosion()
-    b=Bullet(player1.positionH, player1.positionV)
+    player1.sketch_explosion() # to powinno się dziać po trafieniu w gracza pociskiem
+    b=Bullet(player1.positionH, player1.positionV) # to powinno się dziac  w moemncie stzelenia
     s.sketch_shield()
     RepairKit.sketch_RepairKit
-
  
     if keyPressed: 
         if key == 'a' or keyCode == 37: #jeżeli strzałka w lewo albo 'a'
@@ -222,7 +221,7 @@ def draw():
                enemy.shot(True)
  
     for bullet in bullet_group:
-        b.sketch_bullet()
+        bullet.sketch_bullet()
     # przesunięcie w odpowiednim kierunku pozycji każdego z aktywnych pocisków na ekranie (liście pocisków ekranu)
         # sprawdzenie, czy pozycja vertykalna pocisku jest na wysokości statku - taka jak pozycje vertykalne statków
             # sprawdzenie, czy dotyka gracza lub przeciwnika
