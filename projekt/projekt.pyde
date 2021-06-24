@@ -155,17 +155,18 @@ class Shield():
         pass
 class Interface():
     points = 0
-    def bulletIntoYou():
+    def bulletIntoYou(self):
         text ('GameOver', 400,300)# wyświetlenie GameOver
-    def areEnemiesDestroyed():
+    def areEnemiesDestroyed(self):
         for enemy in enemyList:
             if enemy.visability == True:
                 return False;   
         text("Brawo! Zwycięstwo!", width/3, height/2)
         return True
-    def addPoint():
-        self.points += 1
-    # metoda wyświetlająca bieżącą punktację
+    def addPoint(self):
+        Interface.points += 1
+     def showScore(self):
+        text("Score: "+str(Interface.points), 100, 100) # metoda wyświetlająca bieżącą punktację
  
 def setup(): # ta funkcja może występować tylko raz w programie
     size(800, 600)
