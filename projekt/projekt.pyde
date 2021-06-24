@@ -174,7 +174,7 @@ class Interface():
         return True
     def addPoint(self):
         Interface.points += 1
-     def showScore(self):
+    def showScore(self):
         text("Score: "+str(Interface.points), 100, 100) # metoda wyświetlająca bieżącą punktację
  
 def setup(): # ta funkcja może występować tylko raz w programie
