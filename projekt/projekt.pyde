@@ -8,7 +8,7 @@ class Ship():
         self.angle = 180 # ustawienie kierunku ruchu dla pocisku
         self.speed = 3  # ustawienie prędkości ruchu pocisku
 
-    def update_shot(self):
+    def update_shot(self): # to powinno być w strzelaniu, a nie statku
         self.position=player1.position
         if (self.position == 600):  #usuwanie strzału gdy dotknie krawędzi okna 
            remove # trzebaby usubwać coś konkretnego i z konkretnej kolekcji
@@ -17,9 +17,9 @@ class Player(Ship):
     #position
     #grafika
     # poczatkowa pozycja
-    positionH = 350
-    positionV = 518
     def __init__(self): 
+        self.positionH = 350
+        self.positionV = 518
         self.sprite = loadImage('Gracz One.png') # teraz trzeba ją w oddzielnej metodzie rysować uwzględniając pozycję
         # zmienne potrzebne do porusznia eksplozją
         self.a = 380
@@ -84,12 +84,14 @@ class Enemy(Ship):
         image(self.sprite, self.positionHorizontal, self.positionVertical)
         
 class Bullet():
+    def __init__(self, posH, posV): # tu powinna być przekazana pozycja statku
+        self.positionH = posH
+        self.positionV = posV
+        self.direction = 0
     def update(self): # movement - metoda
-        self.x += 5 # szybkosc lotu pocisku
-    def update_shot(self):
-        self.position=player1.position
-        if (self.position == 600):
-            bullet_group.pop(self.bullet)
+        self.positionV += 5 # szybkosc lotu pocisku
+        if (self.positionV>=600):
+             bullet_group.pop(self.bullet)
     def sketch_bullet(self):
         fill(255, 0, 0);
         stroke(0);
@@ -102,17 +104,33 @@ class Bullet():
         curveVertex(30, 30); 
         curveVertex(80, 80);
         endShape(CLOSE);
-    def update_movement(self, x, y):
+    def sketch_bullet2(self):
+        rect(100, 100, 10, 10)
+        rect(90, 110, 10, 10)
+        rect(100, 110, 10, 10)
+        rect(110, 110, 10, 10)
+        rect(80, 120, 10, 10)
+        rect(90, 120, 10, 10)
+        rect(100, 120, 10, 10)
+        rect(110, 120, 10, 10)
+        rect(120, 120, 10, 10)
+        rect(90, 130, 10, 10)
+        rect(100, 130, 10, 10)
+        rect(110, 130, 10, 10)
+        rect(100, 140, 10, 10)
+        rect(100, 150, 10, 10)
+        noStroke()
+    def update_movement(self):
         fill(255, 0, 0);
         stroke(0);
         beginShape();
-        curveVertex(50+x, 60+y);
-        curveVertex(30+x, 30+y);
-        curveVertex(75+x, 60+y);
-        curveVertex(100+x, 100+y);
-        curveVertex(50+x, 120+y);
-        curveVertex(30+x, 30+y); 
-        curveVertex(80+x, 80+y);
+        curveVertex(50+self.positionH, 60+self.positionV);
+        curveVertex(30+self.positionH, 30+self.positionV);
+        curveVertex(75+self.positionH, 60+self.positionV);
+        curveVertex(100+self.positionH, 100+self.positionV);
+        curveVertex(50+self.positionH, 120+self.positionV);
+        curveVertex(30+self.positionH, 30+self.positionV); 
+        curveVertex(80+self.positionH, 80+self.positionV);
         endShape(CLOSE);
 
 class RepairKit():
@@ -121,9 +139,6 @@ class RepairKit():
         self.sprite = loadImage('RepairKit.png')
         self.position = 430, 500
         self.visability = False
-    
-    
-    
 
 class Shield():
  
@@ -169,7 +184,7 @@ def draw():
     player1.sketch_player()
     player1.shooting_stars()
     player1.sketch_explosion()
-    b=Bullet()
+    b=Bullet(player1.positionH, player1.positionV)
     s.sketch_shield()
     RepairKit.sketch_RepairKit
 
