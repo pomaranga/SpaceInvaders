@@ -19,7 +19,7 @@ class Player(Ship):
     # poczatkowa pozycja
     def __init__(self): 
         self.positionH = 350
-        self.positionV = 518
+        self.positionV = 475
         self.sprite = loadImage('Gracz One.png') # teraz trzeba ją w oddzielnej metodzie rysować uwzględniając pozycję
         # zmienne potrzebne do porusznia eksplozją
         self.a = 380
