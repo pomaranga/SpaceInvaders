@@ -67,7 +67,7 @@ class Player(Ship):
  
 class Enemy(Ship):
     nextShot = 0
-    quantity = 3
+    quantity = 6
     def __init__(self, pos):
         self.positionHorizontal = pos
         self.positionVertical = 15
@@ -82,9 +82,9 @@ class Enemy(Ship):
             self.positionVertical += 50
             self.movementDirection = 0
         if self.movementDirection == 0:
-            self.positionHorizontal -= 2
+            self.positionHorizontal -= 1.7
         if self.movementDirection == 1:
-            self.positionHorizontal += 2
+            self.positionHorizontal += 1.7
     def changeVisability(self):
         self.visability = False # zmina visability
             # sprawdzanie czy wszyscy zestrzeleni (areEnemiesDestroyed)
