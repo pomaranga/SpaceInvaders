@@ -91,6 +91,7 @@ class Enemy(Ship):
                 # doliczenie punktów
     def sketch_ship(self):
         image(self.sprite, self.positionHorizontal, self.positionVertical)
+
         
 class Bullet():
     def __init__(self, posH, posV): # tu powinna być przekazana pozycja statku
@@ -175,11 +176,12 @@ class Interface():
     def addPoint(self):
         Interface.points += 1
     def showScore(self):
-        text("Score: "+str(Interface.points), 100, 100) # metoda wyświetlająca bieżącą punktację
+        textSize(30)
+        text("Score: "+str(Interface.points), 5, 50) # metoda wyświetlająca bieżącą punktację
  
 def setup(): # ta funkcja może występować tylko raz w programie
     size(800, 600)
-    global enemyList, player1, ship1, bullet_group, tlo, s, RepairKit
+    global enemyList, player1, ship1, bullet_group, tlo, s, RepairKit,score
     tlo = loadImage("background.jpg") # rozdzielczość 300 ustawiamy dla wydruków, do wyświetlania 72...
     player1 = Player()
     enemyList = []
@@ -188,6 +190,7 @@ def setup(): # ta funkcja może występować tylko raz w programie
     # proponuję jeszcze tu listę strzał
     bullet_group = set()
     s=Shield()
+    score=Interface()
 def draw():
     # te wyświetlania trzeba jeszcze 'posprzątać' w miejsca docelowe
     image(tlo, 0, 0)
@@ -197,7 +200,7 @@ def draw():
     b=Bullet(player1.positionH, player1.positionV) # to powinno się dziac  w moemncie stzelenia
     s.sketch_shield()
     RepairKit.sketch_RepairKit
- 
+    score.showScore()
     if keyPressed: 
         if key == 'a' or keyCode == 37: #jeżeli strzałka w lewo albo 'a'
             player1.changePositionH(-5)
