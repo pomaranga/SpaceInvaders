@@ -148,9 +148,11 @@ class Bullet():
 
 class RepairKit():
 
-    def sketch_RepairKit():
+    def sketch_RepairKit(self):
         self.sprite = loadImage('RepairKit.png') # to tylko załadowanie grafiki, nie rysowanie, powinnodziać isę raz, nie co klatkę
-        self.position = 430, 500
+        self.positionH = 0
+        self.positionV = 500
+        image(self.sprite, self.positionH, self.positionV)
         self.visability = False
 
 class Shield():
@@ -194,6 +196,7 @@ def setup(): # ta funkcja może występować tylko raz w programie
     bullet_group = set()
     s=Shield()
     score=Interface()
+    RepairKit=RepairKit()
 def draw():
     # te wyświetlania trzeba jeszcze 'posprzątać' w miejsca docelowe
     image(tlo, 0, 0)
@@ -202,7 +205,7 @@ def draw():
     player1.sketch_explosion() # to powinno się dziać po trafieniu w gracza pociskiem
     b=Bullet(player1.positionH, player1.positionV) # to powinno się dziac  w moemncie stzelenia
     s.sketch_shield()
-    RepairKit.sketch_RepairKit
+    RepairKit.sketch_RepairKit()
     score.showScore()
     if keyPressed: 
         if key == 'a' or keyCode == 37: #jeżeli strzałka w lewo albo 'a'
