@@ -72,28 +72,28 @@ class Enemy(Ship):
     nextShot = 0
     quantity = 6
     def __init__(self, pos):
-        self.positionHorizontal = pos
-        self.positionVertical = 15
+        self.positionH = pos
+        self.positionV = 15
         self.movementDirection = 1
         self.visability = True
         self.sprite = loadImage('Ship.png') # 4tys px to zdecydowanie za dużo, grafika powinna być raczej rozmiaru 30... poprawiłam, bo nie nadążało ładować i rzucało out of memory, zmieniłąm też kolor, bo nie było widać na tle
     def changePosition(self):
-        if self.positionHorizontal < 0:
-            self.positionVertical += 50 
+        if self.positionH < 0:
+            self.positionV += 50 
             self.movementDirection = 1
-        if self.positionHorizontal > 700:
-            self.positionVertical += 50
+        if self.positionH > 700:
+            self.positionV += 50
             self.movementDirection = 0
         if self.movementDirection == 0:
-            self.positionHorizontal -= 1.7
+            self.positionH -= 1.7
         if self.movementDirection == 1:
-            self.positionHorizontal += 1.7
+            self.positionH += 1.7
     def changeVisability(self):
         self.visability = False # zmina visability
             # sprawdzanie czy wszyscy zestrzeleni (areEnemiesDestroyed)
                 # doliczenie punktów
     def sketch_ship(self):
-        image(self.sprite, self.positionHorizontal, self.positionVertical)
+        image(self.sprite, self.positionH, self.positionV)
 
         
 class Bullet():
