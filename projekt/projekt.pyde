@@ -269,15 +269,15 @@ def draw():
             player1.changePositionH(-5)
         if key == "d" or keyCode == 39:  # jeżeli strzałka w prawo albo 'd'
             player1.changePositionH(5)
+'''
         if key == "w" or keyCode == 38:  # jeżeli strzałka w gore albo 'w'
             player1.changePositionV(-5)
         if key == "s" or keyCode == 40:  # jeżeli strzałka w dol albo 's'
             player1.changePositionV(5)
-        if key == " " or key == ENTER:  # jeżeli spacja lub enter lub strzałka w dół
-            bullet_group.add(
-                player1.shot(0)
-            )  # dodawać do listy tzeba wewnątz metody shot, nie tutaj
-
+'''
+        if key == " " or key == ENTER: # jeżeli spacja lub enter lub strzałka w dół
+            bullet_group.add(player1.shot(0)) # dodawać do listy tzeba wewnątz metody shot, nie tutaj
+			
     for enemy in enemyList:
         enemy.changePosition()
         enemy.sketch_ship()
