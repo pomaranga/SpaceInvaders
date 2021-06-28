@@ -64,6 +64,21 @@ class Player(Ship):
     def sketch_player(self):
         self.sprite = loadImage('Gracz One.png')  
         image(self.sprite, self.positionH, self.positionV, 100, 80)
+  
+       #proba  stworzenia berdera ale cos nie wyszlo
+    def move_left():
+        x = player.xcor()
+        x-= playerspeed
+        if x < -225:
+            x= - 255
+        player.setx(x)
+
+    def move_right():
+        x = player.xcor()
+        x -= playerspeed
+        if x > 225:
+            x= 255
+        player.setx(x)
  
 class Enemy(Ship):
     nextShot = 0
@@ -166,9 +181,7 @@ class Shield():
 class Interface():
     points = 0
     def bulletOrShipIntoYou(self):
-        if (enemy > height):
-            loadImage("gameover.png")# wyświetlenie GameOver
-            
+        text ('GameOver', 400,300)# wyświetlenie GameOver
     def areEnemiesDestroyed(self):
         for enemy in enemyList:
             if enemy.visability == True:
@@ -227,17 +240,6 @@ def draw():
  
     for bullet in bullet_group:
         bullet.sketch_bullet()
-
-#próba strzelania (?)
-    if (game.key("space")): #to powinno iść do gracza ale nie wiem gdzie
-        (game.add(Bullet()))
-
-class Bullet:
-    def __init__(self):
-        self.image=xxx
-        self.positionPlayer(Ship).position
-    def update(self):
-        self.position.y+=5
     # przesunięcie w odpowiednim kierunku pozycji każdego z aktywnych pocisków na ekranie (liście pocisków ekranu)
         # sprawdzenie, czy pozycja vertykalna pocisku jest na wysokości statku - taka jak pozycje vertykalne statków
             # sprawdzenie, czy dotyka gracza lub przeciwnika
