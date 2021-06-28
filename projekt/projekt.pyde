@@ -2,11 +2,11 @@ class Ship:
     # ShotDirection
     # sprite
 
-    def shot(self, angle, posH, posV):
+    def shot(self, isUp, posH, posV):
         fill(25, 255, 0)
-        b = Bullet(angle, posH, posV)
-        bullet_group.add(b)
-        rect(0, 20, 20, 20)  # tworzymy instancję pocisku i dodajemy do listy sktywnych pocisków ów pocisk
+        b = Bullet(isUp, posH, posV) # tworzymy instancję pocisku
+        bullet_group.add(b) # dodajemy do listy sktywnych pocisków ów pocisk
+        rect(0, 20, 20, 20) # to zostawiam w celach debugowych 
         self.speed = 3  # ustawienie prędkości ruchu pocisku
 
     def update_shot(self):  # to powinno być w strzelaniu, a nie statku
@@ -16,16 +16,12 @@ class Ship:
 
 
 class Player(Ship):
-    # position
-    # grafika
 
     # poczatkowa pozycja
     def __init__(self):
         self.positionH = 350
         self.positionV = 475
-        self.sprite = loadImage(
-            "Gracz One.png"
-        )  # teraz trzeba ją w oddzielnej metodzie rysować uwzględniając pozycję
+        self.sprite = loadImage("Gracz One.png")  # teraz trzeba ją w oddzielnej metodzie rysować uwzględniając pozycję
         # zmienne potrzebne do porusznia eksplozją
         self.a = 380
         self.b = 260
@@ -76,7 +72,6 @@ class Player(Ship):
         self.positionV = self.positionV + offset
 
     def sketch_player(self):
-        self.sprite = loadImage("Gracz One.png")
         image(self.sprite, self.positionH, self.positionV, 100, 80)
 
 
@@ -119,17 +114,7 @@ class Bullet:
     def update(self):  # movement - metoda
         self.positionV += 5  # szybkosc lotu pocisku
         if self.positionV >= 600:
-            bullet_group.pop(self.bullet)
-
-    def update2(self): # movement - metoda
-        Vspeed = 4
-        bullet_group.push(self.update_movement())
-        Bullet().changePositionH = False 
-        self.positionV -= Vspeed # szybkosc lotu pocisku
-        bullet_group.pop(self.update_movement())
-        if (self.positionV>=100):
-			image(self.sprite, self.positionHorizontal, self.positionVertical)
-
+            bullet_group.remove(self)
 			 
     def sketch_bullet(self):
         fill(255, 0, 0)
@@ -213,8 +198,7 @@ class Interface:
     def bulletOrShipIntoYou(self):
         self.health -= 10
         text("GameOver", 400, 300)  # wyświetlenie GameOver
-        if (enemy > height):
-            loadImage("gameover.png")# wyświetlenie GameOver
+        image(loadImage("gameover.png"), 300,400)# wyświetlenie GameOver
     def areEnemiesDestroyed(self):
         for enemy in enemyList:
             if enemy.visability == True:
@@ -234,7 +218,7 @@ class Interface:
 
 def setup():  # ta funkcja może występować tylko raz w programie
     size(800, 600)
-    global enemyList, player1, ship1, bullet_group, tlo, s, RepairKit, interface
+    global enemyList, player1, ship1, bullet_group, tlo, s, repairKit, interface
     tlo = loadImage("background.jpg")  # rozdzielczość 300 ustawiamy dla wydruków, do wyświetlania 72...
     player1 = Player()
     enemyList = []
@@ -246,7 +230,7 @@ def setup():  # ta funkcja może występować tylko raz w programie
 
     interface = Interface()
 
-    RepairKit = RepairKit()
+    repairKit = RepairKit()
 
 
 def draw():
@@ -255,7 +239,7 @@ def draw():
     player1.sketch_player()
     player1.shooting_stars()
     s.sketch_shield()
-    RepairKit.sketch_RepairKit()
+    repairKit.sketch_RepairKit()
     interface.showScore()
     interface.draw_health()
     if keyPressed:
@@ -270,20 +254,24 @@ def draw():
             player1.changePositionV(5)
         '''
         if key == " " or key == ENTER: # jeżeli spacja lub enter lub strzałka w dół
-            player1.shot(0, player1.positionH, player1.positionV)
+            player1.shot(True, player1.positionH, player1.positionV)
 			
     for enemy in enemyList:
         enemy.changePosition()
+        if enemy.positionVertical >=player1.positionV-15:
+            interface.bulletOrShipIntoYou()
         enemy.sketch_ship()
         enemy.nextShot -= 1  # loop countdown to shot
         if enemy.nextShot <= 0:  # loop countdown to shot
             isShooting = int(random(0, 2))  # drawing whether the opponent shoots
             enemy.nextShot = 100  # loop countdown to shot
             if isShooting == 1:  # if the shot is drawn
-                enemy.shot(180, enemy.positionHorizontal, enemy.positionVertical)
+                enemy.shot(False, enemy.positionHorizontal, enemy.positionVertical)
 
     for bullet in bullet_group:
-        bullet.sketch_bullet()
+        bullet.update()
+        bullet.update_movement()
+        bullet.sketch_bullet2()
 
     # przesunięcie w odpowiednim kierunku pozycji każdego z aktywnych pocisków na ekranie (liście pocisków ekranu)
     # sprawdzenie, czy pozycja vertykalna pocisku jest na wysokości statku - taka jak pozycje vertykalne statków
