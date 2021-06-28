@@ -4,12 +4,8 @@ class Ship:
 
     def shot(self, angle):
         fill(25, 255, 0)
-        rect(
-            0, 20, 20, 20
-        )  # tworzymy instancję pocisku i dodajemy do listy sktywnych pocisków ów pocisk
-        self.position = (
-            0  # ustawienie pozycji dla pocisku na pozycję statku (self.position)
-        )
+        rect(0, 20, 20, 20)  # tworzymy instancję pocisku i dodajemy do listy sktywnych pocisków ów pocisk
+        self.position = 0  # ustawienie pozycji dla pocisku na pozycję statku (self.position)
         self.angle = 180  # ustawienie kierunku ruchu dla pocisku
         self.speed = 3  # ustawienie prędkości ruchu pocisku
 
@@ -177,9 +173,7 @@ class Bullet:
 
 class RepairKit:
     def sketch_RepairKit(self):
-        self.sprite = loadImage(
-            "RepairKit.png"
-        )  # to tylko załadowanie grafiki, nie rysowanie, powinnodziać isę raz, nie co klatkę
+        self.sprite = loadImage("RepairKit.png")  # to tylko załadowanie grafiki, nie rysowanie, powinnodziać isę raz, nie co klatkę
         self.positionH = 0
         self.positionV = 500
         image(self.sprite, self.positionH, self.positionV)
@@ -236,9 +230,7 @@ class Interface:
 def setup():  # ta funkcja może występować tylko raz w programie
     size(800, 600)
     global enemyList, player1, ship1, bullet_group, tlo, s, RepairKit, interface
-    tlo = loadImage(
-        "background.jpg"
-    )  # rozdzielczość 300 ustawiamy dla wydruków, do wyświetlania 72...
+    tlo = loadImage("background.jpg")  # rozdzielczość 300 ustawiamy dla wydruków, do wyświetlania 72...
     player1 = Player()
     enemyList = []
     for num, i in enumerate(range(Enemy.quantity)):
@@ -258,9 +250,7 @@ def draw():
     player1.sketch_player()
     player1.shooting_stars()
     player1.sketch_explosion()  # to powinno się dziać po trafieniu w gracza pociskiem
-    b = Bullet(
-        player1.positionH, player1.positionV
-    )  # to powinno się dziac  w moemncie stzelenia
+    b = Bullet(player1.positionH, player1.positionV)  # to powinno się dziac  w moemncie stzelenia
     s.sketch_shield()
     RepairKit.sketch_RepairKit()
     interface.showScore()
