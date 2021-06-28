@@ -53,8 +53,10 @@ class Player(Ship):
     #grafika - eksplozja_animacja - trzeba uwzględnić pozycję z której ma eksplozja nastąpić
     def sketch_explosion(self):
         self.sprite = loadImage('explosion.png')
-        image(self.sprite, self.positionH-15, self.positionV-15)
-        #player1.sketch_explosion()
+        if (self.positionV < 440 and self.positionV > 320) and ((self.positionH > 40 and self.positionH < 160) #utrudnienie - eksplozja gracza po wleceniu w tarcze
+                or (self.positionH > 280 and self.positionH < 420)
+                        or (self.positionH > 540 and self.positionH < 680)):
+                            image(self.sprite, self.positionH-15, self.positionV-15)
         
     def changePositionH(self, offset):
         self.positionH = self.positionH + offset;
