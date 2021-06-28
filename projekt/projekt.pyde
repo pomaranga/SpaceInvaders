@@ -114,8 +114,12 @@ class Bullet():
         self.positionV = posV
         self.direction = 0
     def update(self): # movement - metoda
-        self.positionV += 5 # szybkosc lotu pocisku
-        if (self.positionV>=600):
+        Vspeed = 4
+        bullet_group.push(self.update_movement())
+        Bullet().changePositionH = False 
+        self.positionV -= Vspeed # szybkosc lotu pocisku
+        bullet_group.pop(self.update_movement())
+        if (self.positionV>=100):
              bullet_group.pop(self.bullet)
     def sketch_bullet(self):
         fill(255, 0, 0);
