@@ -9,11 +9,6 @@ class Ship:
         rect(0, 20, 20, 20) # to zostawiam w celach debugowych 
         self.speed = 3  # ustawienie prędkości ruchu pocisku
 
-    def update_shot(self):  # to powinno być w strzelaniu, a nie statku
-        self.position = player1.position
-        if self.position == 600:  # usuwanie strzału gdy dotknie krawędzi okna
-            remove  # trzebaby usubwać coś konkretnego i z konkretnej kolekcji
-
 
 class Player(Ship):
 
@@ -224,24 +219,19 @@ def setup():  # ta funkcja może występować tylko raz w programie
     enemyList = []
     for num, i in enumerate(range(Enemy.quantity)):
         enemyList.append(Enemy(0 + num * 100))
-    # proponuję jeszcze tu listę strzał
     bullet_group = set()
     s = Shield()
-
     interface = Interface()
-
     repairKit = RepairKit()
 
 
 def draw():
-    # te wyświetlania trzeba jeszcze 'posprzątać' w miejsca docelowe
     image(tlo, 0, 0)
     player1.sketch_player()
     player1.shooting_stars()
     s.sketch_shield()
     repairKit.sketch_RepairKit()
-    interface.showScore()
-    interface.draw_health()
+    
     if keyPressed:
         if key == "a" or keyCode == 37:  # jeżeli strzałka w lewo albo 'a'
             player1.changePositionH(-5)
@@ -270,13 +260,13 @@ def draw():
 
     for bullet in bullet_group:
         bullet.update()
-        bullet.update_movement()
+        bullet.update_movement() # przesunięcie w odpowiednim kierunku pozycji każdego z aktywnych pocisków na ekranie (liście pocisków ekranu)
         bullet.sketch_bullet2()
 
-    # przesunięcie w odpowiednim kierunku pozycji każdego z aktywnych pocisków na ekranie (liście pocisków ekranu)
     # sprawdzenie, czy pozycja vertykalna pocisku jest na wysokości statku - taka jak pozycje vertykalne statków
     # sprawdzenie, czy dotyka gracza lub przeciwnika
     # sprawdzenie, czy kierunek strzały jest zgodny ze statkiem którego dotyka
     # zależnie od tego którego statku dotyka, wywołanie bulletIntoYou lub zmiana visability wroga
 
-    # wyświetlenie aktualnej liczby punktów
+    interface.showScore() # wyświetlenie aktualnej liczby punktów
+    interface.draw_health()
