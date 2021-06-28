@@ -166,7 +166,9 @@ class Shield():
 class Interface():
     points = 0
     def bulletOrShipIntoYou(self):
-        text ('GameOver', 400,300)# wyświetlenie GameOver
+        if (enemy > height):
+            loadImage("gameover.png")# wyświetlenie GameOver
+            
     def areEnemiesDestroyed(self):
         for enemy in enemyList:
             if enemy.visability == True:
