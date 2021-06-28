@@ -96,17 +96,14 @@ class Enemy(Ship):
         if self.positionH < 0:
             self.positionV += 50
             self.movementDirection = 1
-
         if self.positionH > 700:
             self.positionV += 50
             self.movementDirection = 0
 
         if self.movementDirection == 0:
             self.positionH -= 1.7
-
         if self.movementDirection == 1:
             self.positionH += 1.7
-
     def changeVisability(self):
         self.visability = False  # zmina visability
         # sprawdzanie czy wszyscy zestrzeleni (areEnemiesDestroyed)
@@ -114,8 +111,7 @@ class Enemy(Ship):
 
     def sketch_ship(self):
         image(self.sprite, self.positionH, self.positionV)
-
-
+		
 class Bullet:
     def __init__(self, posH, posV):  # tu powinna być przekazana pozycja statku
         self.positionH = posH
@@ -258,8 +254,7 @@ def draw():
     image(tlo, 0, 0)
     player1.sketch_player()
     player1.shooting_stars()
-    player1.sketch_explosion()  # to powinno się dziać po trafieniu w gracza pociskiem
-    b = Bullet(player1.positionH, player1.positionV)  # to powinno się dziac  w moemncie stzelenia
+    b=Bullet(player1.positionH, player1.positionV) # to powinno się dziac  w momencie stzelenia
     s.sketch_shield()
     RepairKit.sketch_RepairKit()
     interface.showScore()
