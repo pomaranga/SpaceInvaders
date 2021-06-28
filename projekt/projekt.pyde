@@ -290,7 +290,7 @@ def draw():
 
 #próba strzelania (?)
     if (game.key("space")): #to powinno iść do gracza ale nie wiem gdzie
-        (game.add(Bullet())
+        (game.add(Bullet()))
 
 class Bullet:
     def __init__(self):
