@@ -54,6 +54,7 @@ class Player(Ship):
     def sketch_explosion(self):
         self.sprite = loadImage('explosion.png')
         image(self.sprite, self.positionH-15, self.positionV-15)
+        #player1.sketch_explosion()
         
     def changePositionH(self, offset):
         self.positionH = self.positionH + offset;
