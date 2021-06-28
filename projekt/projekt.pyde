@@ -38,10 +38,18 @@ class Player(Ship):
     def shooting_stars(self):
         self.aa = self.aa + 5
         self.bb = self.bb + 5
-        self.cc = self.cc + 0.05
+        self.cc = self.cc + 0.15
         self.dd = self.dd + 5
         self.ee = self.ee + 5
-
+        
+        if (self.aa > 800) or (self.bb > 600):
+            self.aa = random(0,300)
+            self.bb = random(0,400)
+            self.cc = 1
+        if (self.dd > 800) or (self.ee > 600):
+            self.dd = random(0,300)
+            self.ee = random(0,400)
+            self.cc = 1
         fill(255, 255, 100)
         stroke(255, 255, 200)
         rect(self.aa, self.bb, self.cc, self.cc)
@@ -194,6 +202,7 @@ class Interface:
         self.health -= 10
         text("GameOver", 400, 300)  # wyświetlenie GameOver
         image(loadImage("gameover.png"), 300,400)# wyświetlenie GameOver
+        player1.sketch_explosion()
     def areEnemiesDestroyed(self):
         for enemy in enemyList:
             if enemy.visability == True:
