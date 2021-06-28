@@ -53,10 +53,7 @@ class Player(Ship):
     #grafika - eksplozja_animacja - trzeba uwzględnić pozycję z której ma eksplozja nastąpić
     def sketch_explosion(self):
         self.sprite = loadImage('explosion.png')
-        if (self.positionV < 440 and self.positionV > 320) and ((self.positionH > 40 and self.positionH < 160) #utrudnienie - eksplozja gracza po wleceniu w tarcze
-                or (self.positionH > 280 and self.positionH < 420)
-                        or (self.positionH > 540 and self.positionH < 680)):
-                            image(self.sprite, self.positionH-15, self.positionV-15)
+        image(self.sprite, self.positionH-15, self.positionV-15)
         
     def changePositionH(self, offset):
         self.positionH = self.positionH + offset;
@@ -67,48 +64,33 @@ class Player(Ship):
     def sketch_player(self):
         self.sprite = loadImage('Gracz One.png')  
         image(self.sprite, self.positionH, self.positionV, 100, 80)
-  
-       #proba  stworzenia berdera ale cos nie wyszlo
-    def move_left():
-        x = player.xcor()
-        x-= playerspeed
-        if x < -225:
-            x= - 255
-        player.setx(x)
-
-    def move_right():
-        x = player.xcor()
-        x -= playerspeed
-        if x > 225:
-            x= 255
-        player.setx(x)
  
 class Enemy(Ship):
     nextShot = 0
     quantity = 6
     def __init__(self, pos):
-        self.positionH = pos
-        self.positionV = 15
+        self.positionHorizontal = pos
+        self.positionVertical = 15
         self.movementDirection = 1
         self.visability = True
         self.sprite = loadImage('Ship.png') # 4tys px to zdecydowanie za dużo, grafika powinna być raczej rozmiaru 30... poprawiłam, bo nie nadążało ładować i rzucało out of memory, zmieniłąm też kolor, bo nie było widać na tle
     def changePosition(self):
-        if self.positionH < 0 :
-            self.positionV += 50 
+        if self.positionHorizontal < 0:
+            self.positionVertical += 50 
             self.movementDirection = 1
-        if self.positionH > 700:
-            self.positionV += 50
+        if self.positionHorizontal > 700:
+            self.positionVertical += 50
             self.movementDirection = 0
         if self.movementDirection == 0:
-            self.positionH -= 1.7
+            self.positionHorizontal -= 1.7
         if self.movementDirection == 1:
-            self.positionH += 1.7
+            self.positionHorizontal += 1.7
     def changeVisability(self):
         self.visability = False # zmina visability
             # sprawdzanie czy wszyscy zestrzeleni (areEnemiesDestroyed)
                 # doliczenie punktów
     def sketch_ship(self):
-        image(self.sprite, self.positionH, self.positionV)
+        image(self.sprite, self.positionHorizontal, self.positionVertical)
 
         
 class Bullet():
@@ -117,12 +99,8 @@ class Bullet():
         self.positionV = posV
         self.direction = 0
     def update(self): # movement - metoda
-        Vspeed = 4
-        bullet_group.push(self.update_movement())
-        Bullet().changePositionH = False 
-        self.positionV -= Vspeed # szybkosc lotu pocisku
-        bullet_group.pop(self.update_movement())
-        if (self.positionV>=100):
+        self.positionV += 5 # szybkosc lotu pocisku
+        if (self.positionV>=600):
              bullet_group.pop(self.bullet)
     def sketch_bullet(self):
         fill(255, 0, 0);
@@ -218,6 +196,7 @@ def draw():
     image(tlo, 0, 0)
     player1.sketch_player()
     player1.shooting_stars()
+    player1.sketch_explosion() # to powinno się dziać po trafieniu w gracza pociskiem
     b=Bullet(player1.positionH, player1.positionV) # to powinno się dziac  w moemncie stzelenia
     s.sketch_shield()
     RepairKit.sketch_RepairKit
@@ -227,6 +206,10 @@ def draw():
             player1.changePositionH(-5)
         if key == 'd' or keyCode == 39: #jeżeli strzałka w prawo albo 'd'
             player1.changePositionH(5)
+        if key == 'w' or keyCode == 38: #jeżeli strzałka w gore albo 'w'
+            player1.changePositionV(-5)
+        if key == 's' or keyCode == 40: #jeżeli strzałka w dol albo 's'
+            player1.changePositionV(5)
         if key == " " or key == ENTER: # jeżeli spacja lub enter lub strzałka w dół
             bullet_group.add(player1.shot(0)) # dodawać do listy tzeba wewnątz metody shot, nie tutaj
  
@@ -242,6 +225,17 @@ def draw():
  
     for bullet in bullet_group:
         bullet.sketch_bullet()
+
+#próba strzelania (?)
+    if (game.key("space")): #to powinno iść do gracza ale nie wiem gdzie
+        (game.add(Bullet())
+
+class Bullet:
+    def __init__(self):
+        self.image=xxx
+        self.positionPlayer(Ship).position
+    def update(self):
+        self.position.y+=5
     # przesunięcie w odpowiednim kierunku pozycji każdego z aktywnych pocisków na ekranie (liście pocisków ekranu)
         # sprawdzenie, czy pozycja vertykalna pocisku jest na wysokości statku - taka jak pozycje vertykalne statków
             # sprawdzenie, czy dotyka gracza lub przeciwnika
