@@ -85,8 +85,8 @@ class Enemy(Ship):
     quantity = 6
 
     def __init__(self, pos):
-        self.positionH = pos
-        self.positionV = 15
+        self.positionHorizontal = pos
+        self.positionVertical = 15
         self.movementDirection = 1
         self.visability = True
         self.sprite = loadImage(
@@ -94,17 +94,17 @@ class Enemy(Ship):
         )  # 4tys px to zdecydowanie za dużo, grafika powinna być raczej rozmiaru 30... poprawiłam, bo nie nadążało ładować i rzucało out of memory, zmieniłąm też kolor, bo nie było widać na tle
 
     def changePosition(self):
-        if self.positionH < 0:
-            self.positionV += 50
+        if self.positionHorizontal < 0:
+            self.positionVertical += 50
             self.movementDirection = 1
-        if self.positionH > 700:
-            self.positionV += 50
+        if self.positionHorizontal > 700:
+            self.positionVertical += 50
             self.movementDirection = 0
 
         if self.movementDirection == 0:
-            self.positionH -= 1.7
+            self.positionHorizontal -= 1.7
         if self.movementDirection == 1:
-            self.positionH += 1.7
+            self.positionHorizontal += 1.7
     def changeVisability(self):
         self.visability = False  # zmina visability
         # sprawdzanie czy wszyscy zestrzeleni (areEnemiesDestroyed)
@@ -131,7 +131,8 @@ class Bullet:
         self.positionV -= Vspeed # szybkosc lotu pocisku
         bullet_group.pop(self.update_movement())
         if (self.positionV>=100):
-             bullet_group.pop(self.bullet)
+			image(self.sprite, self.positionHorizontal, self.positionVertical)
+
 			 
     def sketch_bullet(self):
         fill(255, 0, 0)
@@ -255,7 +256,7 @@ def draw():
     image(tlo, 0, 0)
     player1.sketch_player()
     player1.shooting_stars()
-    b=Bullet(player1.positionH, player1.positionV) # to powinno się dziac  w momencie stzelenia
+    b=Bullet(player1.positionH, player1.positionV) # to powinno się dziac  w momencie strzelenia
     s.sketch_shield()
     RepairKit.sketch_RepairKit()
     interface.showScore()
@@ -286,6 +287,17 @@ def draw():
 
     for bullet in bullet_group:
         bullet.sketch_bullet()
+
+#próba strzelania (?)
+    if (game.key("space")): #to powinno iść do gracza ale nie wiem gdzie
+        (game.add(Bullet())
+
+class Bullet:
+    def __init__(self):
+        self.image=xxx
+        self.positionPlayer(Ship).position
+    def update(self):
+        self.position.y+=5
     # przesunięcie w odpowiednim kierunku pozycji każdego z aktywnych pocisków na ekranie (liście pocisków ekranu)
     # sprawdzenie, czy pozycja vertykalna pocisku jest na wysokości statku - taka jak pozycje vertykalne statków
     # sprawdzenie, czy dotyka gracza lub przeciwnika
