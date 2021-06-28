@@ -2,11 +2,11 @@ class Ship:
     # ShotDirection
     # sprite
 
-    def shot(self, angle):
+    def shot(self, angle, posH, posV):
         fill(25, 255, 0)
+        b = Bullet(angle, posH, posV)
+        bullet_group.add(b)
         rect(0, 20, 20, 20)  # tworzymy instancję pocisku i dodajemy do listy sktywnych pocisków ów pocisk
-        self.position = 0  # ustawienie pozycji dla pocisku na pozycję statku (self.position)
-        self.angle = 180  # ustawienie kierunku ruchu dla pocisku
         self.speed = 3  # ustawienie prędkości ruchu pocisku
 
     def update_shot(self):  # to powinno być w strzelaniu, a nie statku
@@ -89,9 +89,7 @@ class Enemy(Ship):
         self.positionVertical = 15
         self.movementDirection = 1
         self.visability = True
-        self.sprite = loadImage(
-            "Ship.png"
-        )  # 4tys px to zdecydowanie za dużo, grafika powinna być raczej rozmiaru 30... poprawiłam, bo nie nadążało ładować i rzucało out of memory, zmieniłąm też kolor, bo nie było widać na tle
+        self.sprite = loadImage("Ship.png")
 
     def changePosition(self):
         if self.positionHorizontal < 0:
@@ -100,7 +98,6 @@ class Enemy(Ship):
         if self.positionHorizontal > 700:
             self.positionVertical += 50
             self.movementDirection = 0
-
         if self.movementDirection == 0:
             self.positionHorizontal -= 1.7
         if self.movementDirection == 1:
@@ -111,10 +108,10 @@ class Enemy(Ship):
         # doliczenie punktów
 
     def sketch_ship(self):
-        image(self.sprite, self.positionH, self.positionV)
+        image(self.sprite, self.positionHorizontal, self.positionVertical)
 		
 class Bullet:
-    def __init__(self, posH, posV):  # tu powinna być przekazana pozycja statku
+    def __init__(self, direction, posH, posV):  # tu powinna być przekazana pozycja statku
         self.positionH = posH
         self.positionV = posV
         self.direction = 0
@@ -257,7 +254,6 @@ def draw():
     image(tlo, 0, 0)
     player1.sketch_player()
     player1.shooting_stars()
-    b=Bullet(player1.positionH, player1.positionV) # to powinno się dziac  w momencie strzelenia
     s.sketch_shield()
     RepairKit.sketch_RepairKit()
     interface.showScore()
@@ -267,14 +263,14 @@ def draw():
             player1.changePositionH(-5)
         if key == "d" or keyCode == 39:  # jeżeli strzałka w prawo albo 'd'
             player1.changePositionH(5)
-'''
+        '''
         if key == "w" or keyCode == 38:  # jeżeli strzałka w gore albo 'w'
             player1.changePositionV(-5)
         if key == "s" or keyCode == 40:  # jeżeli strzałka w dol albo 's'
             player1.changePositionV(5)
-'''
+        '''
         if key == " " or key == ENTER: # jeżeli spacja lub enter lub strzałka w dół
-            bullet_group.add(player1.shot(0)) # dodawać do listy tzeba wewnątz metody shot, nie tutaj
+            player1.shot(0, player1.positionH, player1.positionV)
 			
     for enemy in enemyList:
         enemy.changePosition()
@@ -284,21 +280,11 @@ def draw():
             isShooting = int(random(0, 2))  # drawing whether the opponent shoots
             enemy.nextShot = 100  # loop countdown to shot
             if isShooting == 1:  # if the shot is drawn
-                enemy.shot(True)
+                enemy.shot(180, enemy.positionHorizontal, enemy.positionVertical)
 
     for bullet in bullet_group:
         bullet.sketch_bullet()
 
-#próba strzelania (?)
-    if (game.key("space")): #to powinno iść do gracza ale nie wiem gdzie
-        (game.add(Bullet()))
-
-class Bullet:
-    def __init__(self):
-        self.image=xxx
-        self.positionPlayer(Ship).position
-    def update(self):
-        self.position.y+=5
     # przesunięcie w odpowiednim kierunku pozycji każdego z aktywnych pocisków na ekranie (liście pocisków ekranu)
     # sprawdzenie, czy pozycja vertykalna pocisku jest na wysokości statku - taka jak pozycje vertykalne statków
     # sprawdzenie, czy dotyka gracza lub przeciwnika
