@@ -216,7 +216,8 @@ class Interface:
     def bulletOrShipIntoYou(self):
         self.health -= 10
         text("GameOver", 400, 300)  # wyświetlenie GameOver
-
+        if (enemy > height):
+            loadImage("gameover.png")# wyświetlenie GameOver
     def areEnemiesDestroyed(self):
         for enemy in enemyList:
             if enemy.visability == True:
