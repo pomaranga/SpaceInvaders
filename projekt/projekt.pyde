@@ -200,7 +200,6 @@ class Interface:
 
     def bulletOrShipIntoYou(self):
         self.health -= 10
-        text("GameOver", 400, 300)  # wyświetlenie GameOver
         image(loadImage("gameover.png"), 300,400)# wyświetlenie GameOver
         player1.sketch_explosion()
     def areEnemiesDestroyed(self):
