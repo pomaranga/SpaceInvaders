@@ -1,5 +1,4 @@
 class Ship:
-    # ShotDirection
     # sprite
 
     def shot(self, isUp, posH, posV):
@@ -16,7 +15,7 @@ class Player(Ship):
     def __init__(self):
         self.positionH = 350
         self.positionV = 475
-        self.sprite = loadImage("Gracz One.png")  # teraz trzeba ją w oddzielnej metodzie rysować uwzględniając pozycję
+        self.sprite = loadImage("Gracz One.png")
         # zmienne potrzebne do porusznia eksplozją
         self.a = 380
         self.b = 260
@@ -109,7 +108,7 @@ class Enemy(Ship):
         image(self.sprite, self.positionHorizontal, self.positionVertical)
 		
 class Bullet:
-    def __init__(self, direction, posH, posV):  # tu powinna być przekazana pozycja statku
+    def __init__(self, direction, posH, posV):
         self.positionH = posH
         self.positionV = posV
         self.direction = direction
@@ -170,7 +169,7 @@ class Bullet:
 
 class RepairKit:
     def sketch_RepairKit(self):
-        self.sprite = loadImage("RepairKit.png")  # to tylko załadowanie grafiki, nie rysowanie, powinnodziać isę raz, nie co klatkę
+        self.sprite = loadImage("RepairKit.png")  # to tylko załadowanie grafiki, nie rysowanie, powinno dziać się raz, nie co klatkę
         self.positionH = 0
         self.positionV = 500
         image(self.sprite, self.positionH, self.positionV)
@@ -227,7 +226,7 @@ class Interface:
 def setup():  # ta funkcja może występować tylko raz w programie
     size(800, 600)
     global enemyList, player1, ship1, bullet_group, tlo, s, repairKit, interface
-    tlo = loadImage("background.jpg")  # rozdzielczość 300 ustawiamy dla wydruków, do wyświetlania 72...
+    tlo = loadImage("background.jpg")
     player1 = Player()
     enemyList = []
     for num, i in enumerate(range(Enemy.quantity)):
@@ -275,18 +274,15 @@ def draw():
         bullet.update()
         bullet.update_movement() # przesunięcie w odpowiednim kierunku pozycji każdego z aktywnych pocisków na ekranie (liście pocisków ekranu)
         bullet.sketch_bullet2()
-
-    # sprawdzenie, czy pozycja vertykalna pocisku jest na wysokości statku - taka jak pozycje vertykalne statków
-    # sprawdzenie, czy dotyka gracza lub przeciwnika
     
         for ememy in enemyList:
-            if bullet.positionV == enemy.positionVertical:
-                if bullet.positionH == enemy.positionHorizontal:
+            if bullet.positionV == enemy.positionVertical:     # sprawdzenie, czy pozycja vertykalna pocisku jest na wysokości statku - taka jak pozycje vertykalne statków
+                if bullet.positionH == enemy.positionHorizontal: # sprawdzenie, czy dotyka przeciwnika rónież w poziomie
                     self.visability = False
                 
-        if bullet.positionV == player1.positionV:
-            if bullet.positionH == player1.positionH:
-                pass
+        if bullet.positionV == player1.positionV: # sprawdzenie, czy pozycja pocisku pokrywa się z tą gracza w pionie
+            if bullet.positionH == player1.positionH: # sprawdzenie, czy pozycja pocisku pokrywa się z tą gracza w poziomie
+                pass # to do uzupełnienia
          
     # sprawdzenie, czy kierunek strzały jest zgodny ze statkiem którego dotyka
     # zależnie od tego którego statku dotyka, wywołanie bulletIntoYou lub zmiana visability wroga
