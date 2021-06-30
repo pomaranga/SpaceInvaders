@@ -112,13 +112,18 @@ class Bullet:
     def __init__(self, direction, posH, posV):  # tu powinna być przekazana pozycja statku
         self.positionH = posH
         self.positionV = posV
-        self.direction = 0
+        self.direction = direction
 
     def update(self):  # movement - metoda
-        self.positionV += 5  # szybkosc lotu pocisku
-        if self.positionV >= 600:
-            bullet_group.remove(self)
-			 
+        if self.direction == True:
+            self.positionV += 5  # szybkosc lotu pocisku
+            if self.positionV >= 600:
+                bullet_group.remove(self)
+        if self.direction == False:
+            self.positionV -= 5
+            if self.positionV <= 0:
+                bullet_group.remove(self)
+                
     def sketch_bullet(self):
         fill(255, 0, 0)
         stroke(0)
@@ -252,7 +257,7 @@ def draw():
             player1.changePositionV(5)
         '''
         if key == " " or key == ENTER: # jeżeli spacja lub enter lub strzałka w dół
-            player1.shot(True, player1.positionH, player1.positionV)
+            player1.shot(False, player1.positionH, player1.positionV)
 			
     for enemy in enemyList:
         enemy.changePosition()
@@ -273,6 +278,16 @@ def draw():
 
     # sprawdzenie, czy pozycja vertykalna pocisku jest na wysokości statku - taka jak pozycje vertykalne statków
     # sprawdzenie, czy dotyka gracza lub przeciwnika
+    
+        for ememy in enemyList:
+            if bullet.positionV == enemy.positionVertical:
+                if bullet.positionH == enemy.positionHorizontal:
+                    self.visability = False
+                
+        if bullet.positionV == player1.positionV:
+            if bullet.positionH == player1.positionH:
+                pass
+         
     # sprawdzenie, czy kierunek strzały jest zgodny ze statkiem którego dotyka
     # zależnie od tego którego statku dotyka, wywołanie bulletIntoYou lub zmiana visability wroga
 
