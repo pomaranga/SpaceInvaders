@@ -127,7 +127,22 @@ class Bullet:
     def sketch_bullet(self):
         image(self.sprite, self.positionH, self.positionV)
 
-    
+    def sketch_bullet2(self):
+        rect(100, 100, 10, 10)
+        rect(90, 110, 10, 10)
+        rect(100, 110, 10, 10)
+        rect(110, 110, 10, 10)
+        rect(80, 120, 10, 10)
+        rect(90, 120, 10, 10)
+        rect(100, 120, 10, 10)
+        rect(110, 120, 10, 10)
+        rect(120, 120, 10, 10)
+        rect(90, 130, 10, 10)
+        rect(100, 130, 10, 10)
+        rect(110, 130, 10, 10)
+        rect(100, 140, 10, 10)
+        rect(100, 150, 10, 10)
+        noStroke()
 
     def update_movement(self):
         self.positionV
@@ -240,6 +255,7 @@ def draw():
     for bullet in bullet_group:
         bullet.update()
         bullet.update_movement() # przesunięcie w odpowiednim kierunku pozycji każdego z aktywnych pocisków na ekranie (liście pocisków ekranu)
+        bullet.sketch_bullet2()
         bullet.sketch_bullet()
         
     
