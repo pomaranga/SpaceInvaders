@@ -130,8 +130,8 @@ class Bullet:
     
 
     def update_movement(self):
-        self.positionV= self.positionV + 80 
-        self.positionH = self.positionH + 10
+        self.positionV
+        self.positionH 
 
 
 class RepairKit:
