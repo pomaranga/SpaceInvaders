@@ -16,6 +16,8 @@ class Player(Ship):
         self.positionH = 350
         self.positionV = 475
         self.sprite = loadImage("Gracz One.png")
+        self.width = 100 # Szerokosc statku
+        self.height = 80 # Wysokosc statku
         # zmienne potrzebne do porusznia eksplozją
         self.a = 380
         self.b = 260
@@ -75,7 +77,12 @@ class Player(Ship):
 
     def sketch_player(self):
         image(self.sprite, self.positionH, self.positionV, 100, 80)
-
+        # POKAZANIE OBSZARU KOLIZJI
+        stroke(100)
+        noFill()
+        rect(self.positionH, self.positionV, self.width, self.height) # Obszak ktory obejmuje statek.
+        noStroke()
+        # KONIEC POKAZYWANIE OBSZARU KOLIZJI
 
 class Enemy(Ship):
     nextShot = 0
@@ -87,6 +94,8 @@ class Enemy(Ship):
         self.movementDirection = 1
         self.visability = True
         self.sprite = loadImage("Ship.png")
+        self.width = 80 # Szerokosc statku
+        self.height = 50 # Wysokosc statku
 
     def changePosition(self):
         if self.positionHorizontal < 0:
@@ -106,20 +115,30 @@ class Enemy(Ship):
 
     def sketch_ship(self):
         image(self.sprite, self.positionHorizontal, self.positionVertical)
-		
+        # POKAZANIE OBSZARU KOLIZJI
+        stroke(100)
+        noFill()
+        rect(self.positionHorizontal, self.positionVertical, self.width, self.height) # Obszak ktory obejmuje statek.
+        noStroke()
+        # KONIEC POKAZYWANIE OBSZARU KOLIZJI
+       
+        
+    
 class Bullet:
-    def __init__(self, direction, posH, posV):
+    def __init__(self, isUp, posH, posV):
         self.positionH = posH
         self.positionV = posV
-        self.direction = direction
+        self.isUp = isUp # Zmienna przechowujaca informacje czy pocisk leci do gory
         self.sprite= loadImage("arrow.png")
+        self.width = 80 # Szerokosc pocisku
+        self.height = 50 # Wysokosc pocisku
 
     def update(self):  # movement - metoda
-        if self.direction == True:
+        if self.isUp == False: # Jezeli pocisk nie leci do gory
             self.positionV += 5  # szybkosc lotu pocisku
             if self.positionV >= 600:
                 bullet_group.remove(self)
-        if self.direction == False:
+        if self.isUp == True: # Jezeli pocisk leci do gory
             self.positionV -= 5
             if self.positionV <= 0:
                 bullet_group.remove(self)
@@ -143,10 +162,18 @@ class Bullet:
         rect(100, 140, 10, 10)
         rect(100, 150, 10, 10)
         noStroke()
+        
+        # POKAZANIE OBSZARU KOLIZJI
+        stroke(100)
+        noFill()
+        rect(self.positionH, self.positionV, self.width, self.height) # Obszak ktory obejmuje pocisk.
+        noStroke()
+        # KONIEC POKAZYWANIE OBSZARU KOLIZJI
 
     def update_movement(self):
         self.positionV
         self.positionH 
+        
 
 
 class RepairKit:
@@ -218,6 +245,11 @@ def setup():  # ta funkcja może występować tylko raz w programie
     interface = Interface()
     repairKit = RepairKit()
 
+# Funkcja wykrywajaca czy zachodzi kolizja pomiedzy dwoma prostokatami
+def inBounds (posX1, posY1, width1, height1, posX2, posY2, width2, height2):
+    if (posX1 < posX2 + width2 and posX1 + width1 > posX2 and posY1 < posY2 + height2 and posY1 + height1 > posY2):
+        return True
+    return False
 
 def draw():
     image(tlo, 0, 0)
@@ -238,8 +270,8 @@ def draw():
             player1.changePositionV(5)
         '''
         if key == " " or key == ENTER: # jeżeli spacja lub enter lub strzałka w dół
-            player1.shot(False, player1.positionH, player1.positionV)
-			
+            player1.shot(True, player1.positionH, player1.positionV)
+      
     for enemy in enemyList:
         enemy.changePosition()
         if enemy.positionVertical >=player1.positionV-15:
@@ -250,7 +282,7 @@ def draw():
             isShooting = int(random(0, 2))  # drawing whether the opponent shoots
             enemy.nextShot = 100  # loop countdown to shot
             if isShooting == 1:  # if the shot is drawn
-                enemy.shot(False, enemy.positionHorizontal, enemy.positionVertical)
+                enemy.shot(False , enemy.positionHorizontal, enemy.positionVertical)
 
     for bullet in bullet_group:
         bullet.update()
@@ -258,12 +290,16 @@ def draw():
         bullet.sketch_bullet2()
         bullet.sketch_bullet()
         
-    
-        for ememy in enemyList:
-            if bullet.positionV == enemy.positionVertical:     # sprawdzenie, czy pozycja vertykalna pocisku jest na wysokości statku - taka jak pozycje vertykalne statków
-                if bullet.positionH == enemy.positionHorizontal: # sprawdzenie, czy dotyka przeciwnika rónież w poziomie
-                    self.visability = False
-                
+        if(bullet.isUp == True): # Jezeli pocisk leci w gore to:
+            for ememy in list(enemyList): # Przelatujemy przez cala liste wrogow i:
+                if (inBounds(bullet.positionH, bullet.positionV, bullet.width, bullet.height, ememy.positionHorizontal, enemy.positionVertical, enemy.width, enemy.height) == True): # Jezeli wrog i pocisk sie zderzaja to:
+                    enemyList.remove(ememy) # To usuwamy wroga z listy wrogow.
+        
+        if(bullet.isUp == False): # Jezeli pocisk leci w dol to:
+            if (inBounds(bullet.positionH, bullet.positionV, bullet.width, bullet.height, player1.positionH, player1.positionV, player1.width, player1.height) == True): # Jezeli gracz i pocisk sie zderzaja to:
+                interface.bulletOrShipIntoYou() # Powiadamiamy interfejs ze cos przywalilo w nasz statek
+                bullet_group.remove(bullet)     # Usuwamy pocisk z gry
+        
         if bullet.positionV == player1.positionV: # sprawdzenie, czy pozycja pocisku pokrywa się z tą gracza w pionie
             if bullet.positionH == player1.positionH: # sprawdzenie, czy pozycja pocisku pokrywa się z tą gracza w poziomie
                 pass # to do uzupełnienia
