@@ -112,6 +112,7 @@ class Bullet:
         self.positionH = posH
         self.positionV = posV
         self.direction = direction
+        self.sprite= loadImage("arrow.png")
 
     def update(self):  # movement - metoda
         if self.direction == True:
@@ -124,17 +125,7 @@ class Bullet:
                 bullet_group.remove(self)
                 
     def sketch_bullet(self):
-        fill(255, 0, 0)
-        stroke(0)
-        beginShape()
-        curveVertex(50, 60)
-        curveVertex(30, 30)
-        curveVertex(75, 60)
-        curveVertex(100, 100)
-        curveVertex(50, 120)
-        curveVertex(30, 30)
-        curveVertex(80, 80)
-        endShape(CLOSE)
+        image(self.sprite, self.positionH, self.positionV)
 
     def sketch_bullet2(self):
         rect(100, 100, 10, 10)
@@ -154,17 +145,8 @@ class Bullet:
         noStroke()
 
     def update_movement(self):
-        fill(255, 0, 0)
-        stroke(0)
-        beginShape()
-        curveVertex(50 + self.positionH, 60 + self.positionV)
-        curveVertex(30 + self.positionH, 30 + self.positionV)
-        curveVertex(75 + self.positionH, 60 + self.positionV)
-        curveVertex(100 + self.positionH, 100 + self.positionV)
-        curveVertex(50 + self.positionH, 120 + self.positionV)
-        curveVertex(30 + self.positionH, 30 + self.positionV)
-        curveVertex(80 + self.positionH, 80 + self.positionV)
-        endShape(CLOSE)
+        self.positionV= self.positionV + 80 
+        self.positionH = self.positionH + 10
 
 
 class RepairKit:
@@ -274,6 +256,7 @@ def draw():
         bullet.update()
         bullet.update_movement() # przesunięcie w odpowiednim kierunku pozycji każdego z aktywnych pocisków na ekranie (liście pocisków ekranu)
         bullet.sketch_bullet2()
+        
     
         for ememy in enemyList:
             if bullet.positionV == enemy.positionVertical:     # sprawdzenie, czy pozycja vertykalna pocisku jest na wysokości statku - taka jak pozycje vertykalne statków
