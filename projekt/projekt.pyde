@@ -258,6 +258,36 @@ def draw():
     s.sketch_shield()
     repairKit.sketch_RepairKit()
     
+    #galaktyka-tło-grafika-orbita
+    stroke(255,255,255)
+    fill(0, 0, 0, 0)
+    ellipse(2, 2, 500, 500)
+    stroke(255,247,0)
+    fill(255,250,87)
+    ellipse(2, 2, 200, 200)
+    stroke (255, 255, 255)
+    fill(255, 255, 255)
+    ellipse(250, 30, 30, 30)
+    stroke (255, 255, 255)
+    fill(168, 168, 168)
+    ellipse(207, 150, 50, 50)
+    stroke (81, 81, 81)
+    fill(81, 81, 81)
+    ellipse(207, 150, 4, 4)
+    stroke (81, 81, 81)
+    fill(81, 81, 81)
+    ellipse(225, 150, 4, 4)
+    stroke (81, 81, 81)
+    fill(81, 81, 81)
+    ellipse(190, 150, 4, 4)
+    stroke (81, 81, 81)
+    fill(81, 81, 81)
+    ellipse(207, 134, 4, 4)
+    stroke (81, 81, 81)
+    fill(81, 81, 81)
+    ellipse(207, 165, 4, 4)
+
+    
     if keyPressed:
         if key == "a" or keyCode == 37:  # jeżeli strzałka w lewo albo 'a'
             player1.changePositionH(-5)
