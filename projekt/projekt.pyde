@@ -286,6 +286,21 @@ def draw():
     stroke (81, 81, 81)
     fill(81, 81, 81)
     ellipse(207, 165, 4, 4)
+    
+    #grafiki do tła (planety) 
+    stroke(19,26,60)
+    fill(19,26,60)
+    ellipse(400, 100, 100, 100)
+    ellipse(400, 100, 200, 50)
+    stroke(14,19,47)
+    fill(14,19,47)
+    ellipse(400, 81, 90, 60)
+    stroke(47,79,79)
+    fill(47,79,79)
+    ellipse(400, 300, 70, 70)
+    stroke (90, 90, 70)
+    fill(90, 90, 70)
+    ellipse(500, 400, 30, 30)
 
     
     if keyPressed:
