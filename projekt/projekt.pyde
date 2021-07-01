@@ -97,6 +97,13 @@ class Enemy(Ship):
         self.width = 80 # Szerokosc statku
         self.height = 50 # Wysokosc statku
 
+         def cooldown(self):
+        if self.cool_down_counter >= self.COOLDOWN-100:
+           self.cool_down_counter = 0
+        else: 
+            self.cool_down_counter+=1
+            
+            
     def changePosition(self):
         if self.positionHorizontal < 0:
             self.positionVertical += 50
