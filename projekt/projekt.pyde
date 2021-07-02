@@ -265,6 +265,22 @@ def draw():
     s.sketch_shield()
     repairKit.sketch_RepairKit()
     
+    #meteoryty
+    fill(200, 100, 0)
+    rect(30, 200, 50, 50)
+    fill(250, 100, 0)
+    rect(300, 500, 30, 30)
+    fill(200, 100, 0)
+    rect(200, 30, 30, 30)
+    fill(250, 100, 0)
+    rect(400, 200, 50, 50)
+    fill(250, 100, 0)
+    rect(50, 70, 30, 30)
+    fill(200, 100, 0)
+    rect(500, 500, 30, 30)
+    fill(250, 100, 0)
+    rect(100, 30, 70, 70)
+    
     #galaktyka-tło-grafika-orbita
     stroke(255,255,255)
     fill(0, 0, 0, 0)
