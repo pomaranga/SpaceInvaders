@@ -2,10 +2,8 @@ class Ship:
     # sprite
 
     def shot(self, isUp, posH, posV):
-        fill(25, 255, 0)
         b = Bullet(isUp, posH, posV) # tworzymy instancję pocisku
         bullet_group.add(b) # dodajemy do listy sktywnych pocisków ów pocisk
-        rect(0, 20, 20, 20) # to zostawiam w celach debugowych 
         self.speed = 3  # ustawienie prędkości ruchu pocisku
 
 
@@ -145,22 +143,6 @@ class Bullet:
     def sketch_bullet(self):
         image(self.sprite, self.positionH, self.positionV)
 
-    def sketch_bullet2(self):
-        rect(100, 100, 10, 10)
-        rect(90, 110, 10, 10)
-        rect(100, 110, 10, 10)
-        rect(110, 110, 10, 10)
-        rect(80, 120, 10, 10)
-        rect(90, 120, 10, 10)
-        rect(100, 120, 10, 10)
-        rect(110, 120, 10, 10)
-        rect(120, 120, 10, 10)
-        rect(90, 130, 10, 10)
-        rect(100, 130, 10, 10)
-        rect(110, 130, 10, 10)
-        rect(100, 140, 10, 10)
-        rect(100, 150, 10, 10)
-        noStroke()
         
         # POKAZANIE OBSZARU KOLIZJI
         stroke(100)
@@ -226,9 +208,7 @@ class Interface:
 
     def showScore(self):
         textSize(30)
-        text(
-            "Score:" + str(Interface.points), 5, 50
-        )  # metoda wyświetlająca bieżącą punktację
+        text("Score:" + str(self.points), 5, 50)  # metoda wyświetlająca bieżącą punktację
 
 
 def setup():  # ta funkcja może występować tylko raz w programie
@@ -336,6 +316,11 @@ def draw():
         if key == " " or key == ENTER: # jeżeli spacja lub enter lub strzałka w dół
             player1.shot(True, player1.positionH, player1.positionV)
       
+        if player1.positionH < 0:
+            player1.positionH = 0
+        if player1.positionH > 700:
+            player1.positionH = 700
+            
     for enemy in enemyList:
         enemy.changePosition()
         if enemy.positionVertical >=player1.positionV-15:
@@ -351,7 +336,6 @@ def draw():
     for bullet in bullet_group:
         bullet.update()
         bullet.update_movement() # przesunięcie w odpowiednim kierunku pozycji każdego z aktywnych pocisków na ekranie (liście pocisków ekranu)
-        bullet.sketch_bullet2()
         bullet.sketch_bullet()
         
         if(bullet.isUp == True): # Jezeli pocisk leci w gore to:
