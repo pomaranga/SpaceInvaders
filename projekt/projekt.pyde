@@ -57,17 +57,9 @@ class Player(Ship):
         rect(self.dd, self.ee, self.cc, self.cc)
 
     # grafika - eksplozja_animacja - trzeba uwzględnić pozycję z której ma eksplozja nastąpić
-    def sketch_explosion(self):
+    def sketch_explosion(self): #player1.sketch_explosion()
         self.sprite = loadImage("explosion.png")
-        if (self.positionV < 440 and self.positionV > 320) and (
-            (
-                self.positionH > 40 and self.positionH < 160
-            )  # utrudnienie - eksplozja gracza po wleceniu w tarcze
-            or (self.positionH > 280 and self.positionH < 420)
-            or (self.positionH > 540 and self.positionH < 680)
-        ):
-            image(self.sprite, self.positionH - 15, self.positionV - 15)
-        #player1.sketch_explosion()
+        image(self.sprite, self.positionH - 15, self.positionV - 15)
 
     def changePositionH(self, offset):
         self.positionH = self.positionH + offset
@@ -211,17 +203,17 @@ class Interface:
     health = 100
 
     def draw_health(self):
-
         fill(255, 0, 0)
         rect(550, 550, self.health * 2, 30)
-
         textSize(30)
         text("Health: " + str(self.health), 550, 540)
 
     def bulletOrShipIntoYou(self):
         self.health -= 10
-        image(loadImage("gameover.png"), 300,400)# wyświetlenie GameOver
-        player1.sketch_explosion()
+        if self.health <= 0:
+            player1.sketch_explosion()
+            image(loadImage("gameover.png"), 300,400)# wyświetlenie GameOver
+        
     def areEnemiesDestroyed(self):
         for enemy in enemyList:
             if enemy.visability == True:
@@ -325,6 +317,10 @@ def draw():
     fill(90, 90, 70)
     ellipse(500, 400, 30, 30)
 
+    # wyjście z gry (exit)
+    fill(220,0,190,130)
+    rect(720, 10, 70, 40)
+    text('exit', 727,40)
     
     if keyPressed:
         if key == "a" or keyCode == 37:  # jeżeli strzałka w lewo albo 'a'
@@ -377,3 +373,8 @@ def draw():
 
     interface.showScore() # wyświetlenie aktualnej liczby punktów
     interface.draw_health()
+    
+def mouseClicked():
+    if mouseX >720 and mouseX<790:
+        if mouseY <50 and mouseY >10:
+            exit()
