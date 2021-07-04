@@ -190,11 +190,20 @@ class Interface:
         textSize(30)
         text("Health: " + str(self.health), 550, 540)
 
-    def bulletOrShipIntoYou(self):
+    '''def bulletOrShipIntoYou(self):
         self.health -= 10
         if self.health <= 0:
             player1.sketch_explosion()
-            image(loadImage("gameover.png"), 300,400)# wyświetlenie GameOver
+            image(loadImage("gameover.png"), 300,400)# wyświetlenie GameOver'''
+            
+   def bulletOrShipIntoYou(self): #2 
+        self.health -= 10
+        if self.health <= 0:
+            image(loadImage("gameover.png"), 300, 100)# wyświetlenie GameOver
+            fill(255, 0, 0)
+            text("Twoje punkty to " + str(Interface.points), width / 3, 350)
+            player1.sketch_explosion()
+            noLoop() 
         
     def areEnemiesDestroyed(self):
         for enemy in enemyList:
@@ -342,6 +351,7 @@ def draw():
             for ememy in list(enemyList): # Przelatujemy przez cala liste wrogow i:
                 if (inBounds(bullet.positionH, bullet.positionV, bullet.width, bullet.height, ememy.positionHorizontal, enemy.positionVertical, enemy.width, enemy.height) == True): # Jezeli wrog i pocisk sie zderzaja to:
                     enemyList.remove(ememy) # To usuwamy wroga z listy wrogow.
+                    interface.addPoint() #dodawnie punktów jeśli zestrzeli się przeciwnika
         
         if(bullet.isUp == False): # Jezeli pocisk leci w dol to:
             if (inBounds(bullet.positionH, bullet.positionV, bullet.width, bullet.height, player1.positionH, player1.positionV, player1.width, player1.height) == True): # Jezeli gracz i pocisk sie zderzaja to:
@@ -357,7 +367,12 @@ def draw():
 
     interface.showScore() # wyświetlenie aktualnej liczby punktów
     interface.draw_health()
+    interface.areEnemiesDestroyed() #wywołanie metody żeby sprawdzić czy się grało czy nie
     
+def keyTyped(): 
+    if key == " " or key == ENTER: # jeżeli spacja lub enter lub strzałka w dół
+        player1.shot(True, player1.positionH, player1.positionV)
+        
 def mouseClicked():
     if mouseX >720 and mouseX<790:
         if mouseY <50 and mouseY >10:
