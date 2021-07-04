@@ -190,13 +190,8 @@ class Interface:
         textSize(30)
         text("Health: " + str(self.health), 550, 540)
 
-    '''def bulletOrShipIntoYou(self):
-        self.health -= 10
-        if self.health <= 0:
-            player1.sketch_explosion()
-            image(loadImage("gameover.png"), 300,400)# wyświetlenie GameOver'''
-            
-   def bulletOrShipIntoYou(self): #2 
+                    
+    def bulletOrShipIntoYou(self): #2 
         self.health -= 10
         if self.health <= 0:
             image(loadImage("gameover.png"), 300, 100)# wyświetlenie GameOver
