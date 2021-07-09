@@ -204,7 +204,7 @@ class Interface:
         for enemy in enemyList:
             if enemy.visability == True:
                 return False
-        text("Brawo! Zwycięstwo!", width / 3, height / 2)
+        text("Brawo! Wygrana!", width / 3, height / 2)
         return True
 
     def addPoint(self):
