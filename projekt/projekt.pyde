@@ -307,6 +307,10 @@ def draw():
     rect(720, 10, 70, 40)
     text('exit', 727,40)
     
+    fill(220,0,190,130)
+    rect(605, 10, 100, 40)
+    text('restart', 727-120,40)
+    
     if keyPressed:
         if key == "a" or keyCode == 37:  # jeżeli strzałka w lewo albo 'a'
             player1.changePositionH(-5)
@@ -373,3 +377,8 @@ def mouseClicked():
     if mouseX >720 and mouseX<790:
         if mouseY <50 and mouseY >10:
             exit()
+    elif mouseX >605 and mouseX < 707:
+        if mouseY <50 and mouseY >10:
+            setup()
+    
+            
