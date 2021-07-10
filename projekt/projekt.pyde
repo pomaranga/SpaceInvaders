@@ -205,6 +205,7 @@ class Interface:
             if enemy.visability == True:
                 return False
         text("Brawo! Wygrana!", width / 3, height / 2)
+        noLoop()
         return True
 
     def addPoint(self):
