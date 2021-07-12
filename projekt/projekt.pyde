@@ -1,5 +1,4 @@
 class Ship:
-    # sprite
 
     def shot(self, isUp, posH, posV):
         b = Bullet(isUp, posH, posV) # tworzymy instancję pocisku
@@ -158,13 +157,34 @@ class Bullet:
 
 
 class RepairKit:
-    def sketch_RepairKit(self):
+    def __init__(self):
+        self.visability = False
         self.sprite = loadImage("RepairKit.png")  # to tylko załadowanie grafiki, nie rysowanie, powinno dziać się raz, nie co klatkę
-        self.positionH = random(100, 500)
+        
+    def sketch_RepairKit(self):
+        self.positionH = 100
         self.positionV = 500
-        image(self.sprite, self.positionH, self.positionV)
-        self.visibility = False
+        if self.visability == True:
+            image(self.sprite, self.positionH, self.positionV)
         self.value = 20
+        
+    def RepairKitCollision(self):
+        if player1.positionH == self.positionH:
+            self.visability = False
+            return True
+        return False
+        
+    def RepairKitSpawn(self):
+        if Interface.points >= 1:
+            if Interface.health <= 80:
+                self.visability = True
+                return True
+        return False
+
+    def RepairProcedure(self):
+        if (self.RepairKitCollision() and self.RepairKitSpawn()) == True:
+            Interface.health += self.value
+            text("naprawiono", height/4, width/4)
 
 
 class Shield:
@@ -187,14 +207,14 @@ class Interface:
 
     def draw_health(self):
         fill(255, 0, 0)
-        rect(550, 550, self.health * 2, 30)
+        rect(550, 550, Interface.health * 2, 30)
         textSize(30)
-        text("Health: " + str(self.health), 550, 540)
+        text("Health: " + str(Interface.health), 550, 540)
 
                     
     def bulletOrShipIntoYou(self): #2 
-        self.health -= 10
-        if self.health <= 0:
+        Interface.health -= 10
+        if Interface.health <= 0:
             image(loadImage("gameover.png"), 300, 100)# wyświetlenie GameOver
             fill(255, 0, 0)
             text("Twoje punkty to " + str(Interface.points), width / 3, 350)
@@ -214,25 +234,7 @@ class Interface:
 
     def showScore(self):
         textSize(30)
-        text("Score:" + str(self.points), 5, 50)  # metoda wyświetlająca bieżącą punktację
-
-    
-
-    def RepairKitCollision():
-        if player1.positionH == RepairKit.positionH:
-            return True
-        
-    def RepairKitSpawn():
-        if RepairKitCollision == True and points >= 10:
-            RepairKit.visibility == True
-            return True
-            
-
-    def RepairProcedure(self):
-        if (RepairKitCollission, RepairKitSpawn) == True:
-            health += RepairKit.Value
-            text("naprawiono", height/4, width/4)
-            
+        text("Score:" + str(Interface.points), 5, 50)  # metoda wyświetlająca bieżącą punktację    
 
         
 def setup():  # ta funkcja może występować tylko raz w programie
@@ -372,19 +374,14 @@ def draw():
                 if (inBounds(bullet.positionH, bullet.positionV, bullet.width, bullet.height, ememy.positionHorizontal, enemy.positionVertical, enemy.width, enemy.height) == True): # Jezeli wrog i pocisk sie zderzaja to:
                     enemyList.remove(ememy) # To usuwamy wroga z listy wrogow.
                     interface.addPoint() #dodawnie punktów jeśli zestrzeli się przeciwnika
+                    repairKit.RepairKitSpawn()
         
         if(bullet.isUp == False): # Jezeli pocisk leci w dol to:
             if (inBounds(bullet.positionH, bullet.positionV, bullet.width, bullet.height, player1.positionH, player1.positionV, player1.width, player1.height) == True): # Jezeli gracz i pocisk sie zderzaja to:
                 interface.bulletOrShipIntoYou() # Powiadamiamy interfejs ze cos przywalilo w nasz statek
                 bullet_group.remove(bullet)     # Usuwamy pocisk z gry
-        
-        if bullet.positionV == player1.positionV: # sprawdzenie, czy pozycja pocisku pokrywa się z tą gracza w pionie
-            if bullet.positionH == player1.positionH: # sprawdzenie, czy pozycja pocisku pokrywa się z tą gracza w poziomie
-                pass # to do uzupełnienia
-         
-    # sprawdzenie, czy kierunek strzały jest zgodny ze statkiem którego dotyka
-    # zależnie od tego którego statku dotyka, wywołanie bulletIntoYou lub zmiana visability wroga
-
+                
+    repairKit.RepairProcedure()
     interface.showScore() # wyświetlenie aktualnej liczby punktów
     interface.draw_health()
     interface.areEnemiesDestroyed() #wywołanie metody żeby sprawdzić czy się grało czy nie
