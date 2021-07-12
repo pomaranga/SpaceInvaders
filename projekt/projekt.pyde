@@ -163,7 +163,8 @@ class RepairKit:
         self.positionH = 0
         self.positionV = 500
         image(self.sprite, self.positionH, self.positionV)
-        self.visability = False
+        self.visibility = False
+        self.value = 20
 
 
 class Shield:
@@ -215,7 +216,25 @@ class Interface:
         textSize(30)
         text("Score:" + str(self.points), 5, 50)  # metoda wyświetlająca bieżącą punktację
 
+    
 
+    def RepairKitCollision():
+        if player1.positionH == RepairKit.positionH:
+            return True
+        
+    def RepairKitSpawn():
+        if RepairKitCollision == True and points >= 10:
+            RepairKit.visibility == True
+            return True
+            
+
+    def RepairProcedure(self):
+        if (RepairKitCollission, RepairKitSpawn) == True:
+            health += RepairKit.Value
+            text("naprawiono", height/4, width/4)
+            
+
+        
 def setup():  # ta funkcja może występować tylko raz w programie
     size(800, 600)
     global enemyList, player1, ship1, bullet_group, tlo, s, repairKit, interface
@@ -330,6 +349,7 @@ def draw():
         if player1.positionH > 700:
             player1.positionH = 700
             
+            
     for enemy in enemyList:
         enemy.changePosition()
         if enemy.positionVertical >=player1.positionV-15:
@@ -380,5 +400,6 @@ def mouseClicked():
     elif mouseX >605 and mouseX < 707:
         if mouseY <50 and mouseY >10:
             setup()
+
     
             
