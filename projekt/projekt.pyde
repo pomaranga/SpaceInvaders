@@ -205,7 +205,7 @@ class Interface:
         for enemy in enemyList:
             if enemy.visability == True:
                 return False
-        text("Brawo! Wygrana!", width / 3, height / 2)
+        image(loadImage("victory.png"), 0, 165)
         noLoop()
         return True
 
