@@ -160,7 +160,7 @@ class Bullet:
 class RepairKit:
     def sketch_RepairKit(self):
         self.sprite = loadImage("RepairKit.png")  # to tylko załadowanie grafiki, nie rysowanie, powinno dziać się raz, nie co klatkę
-        self.positionH = 0
+        self.positionH = random(100, 500)
         self.positionV = 500
         image(self.sprite, self.positionH, self.positionV)
         self.visibility = False
