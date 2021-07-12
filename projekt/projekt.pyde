@@ -219,6 +219,7 @@ class Interface:
             fill(255, 0, 0)
             text("Twoje punkty to " + str(Interface.points), width / 3, 350)
             player1.sketch_explosion()
+            return True
             noLoop() 
         
     def areEnemiesDestroyed(self):
@@ -226,8 +227,10 @@ class Interface:
             if enemy.visability == True:
                 return False
         image(loadImage("victory.png"), 0, 165)
-        noLoop()
+               
         return True
+        noLoop() 
+
 
     def addPoint(self):
         Interface.points += 1
@@ -330,7 +333,7 @@ def draw():
     
     fill(220,0,190,130)
     rect(605, 10, 100, 40)
-    text('restart', 727-120,40)
+    text('restart', 607,40)
     
     if keyPressed:
         if key == "a" or keyCode == 37:  # jeżeli strzałka w lewo albo 'a'
@@ -394,7 +397,7 @@ def mouseClicked():
     if mouseX >720 and mouseX<790:
         if mouseY <50 and mouseY >10:
             exit()
-    elif mouseX >605 and mouseX < 707:
+    if mouseX >605 and mouseX < 707:
         if mouseY <50 and mouseY >10:
             setup()
 
