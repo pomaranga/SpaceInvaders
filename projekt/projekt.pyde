@@ -7,7 +7,8 @@ class Ship:
 
 
 class Player(Ship):
-
+nextShot = 100
+shotcount = 5
     # poczatkowa pozycja
     def __init__(self):
         self.positionH = 350
@@ -332,6 +333,8 @@ def draw():
     rect(605, 10, 100, 40)
     text('restart', 607,40)
     
+    player1.nextShot += 1
+    
     if keyPressed:
         if key == "a" or keyCode == 37:  # jeżeli strzałka w lewo albo 'a'
             player1.changePositionH(-5)
@@ -351,6 +354,13 @@ def draw():
         if player1.positionH > 700:
             player1.positionH = 700
             
+            def keyTyped():
+if key == " " or key == ENTER: # jeżeli spacja lub enter lub strzałka w dół
+if player1.shotcount > 0 and player1.nextShot > 100:
+player1.shotcount -= 1
+player1.nextShot = 0
+player1.shot(True, player1.positionH, player1.positionV)
+
             
     for enemy in enemyList:
         enemy.changePosition()
