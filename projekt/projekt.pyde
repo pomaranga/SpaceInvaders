@@ -1,9 +1,22 @@
+from datetime import datetime, timedelta
+from random import randint
+
+
 class Ship:
+    last_shot_time = datetime.now()
+    shot_timeout = 0.5
 
     def shot(self, isUp, posH, posV):
-        b = Bullet(isUp, posH, posV) # tworzymy instancję pocisku
-        bullet_group.add(b) # dodajemy do listy sktywnych pocisków ów pocisk
-        self.speed = 3  # ustawienie prędkości ruchu pocisku
+        timeout = timedelta(seconds=self.shot_timeout)
+
+        if self.last_shot_time + timeout < datetime.now():
+            b = Bullet(isUp, posH, posV) # tworzymy instancję pocisku
+            bullet_group.add(b) # dodajemy do listy sktywnych pocisków ów pocisk
+            self.speed = 3  # ustawienie prędkości ruchu pocisku
+            self.last_shot_time = datetime.now()
+
+            return True
+        return False
 
 
 class Player(Ship):
@@ -40,7 +53,7 @@ class Player(Ship):
         self.cc = self.cc + 0.15
         self.dd = self.dd + 5
         self.ee = self.ee + 5
-        
+
         if (self.aa > 800) or (self.bb > 600):
             self.aa = random(0,300)
             self.bb = random(0,400)
@@ -83,17 +96,17 @@ class Enemy(Ship):
         self.positionVertical = 15
         self.movementDirection = 1
         self.visability = True
-        self.sprite = loadImage("Ship.png")
+        self.sprite = loadImage("ship.png")
         self.width = 80 # Szerokosc statku
         self.height = 50 # Wysokosc statku
 
     def cooldown(self):
         if self.cool_down_counter >= self.COOLDOWN-100:
            self.cool_down_counter = 0
-        else: 
+        else:
             self.cool_down_counter+=1
-            
-            
+
+
     def changePosition(self):
         if self.positionHorizontal < 0:
             self.positionVertical += 50
@@ -105,6 +118,7 @@ class Enemy(Ship):
             self.positionHorizontal -= 1.7
         if self.movementDirection == 1:
             self.positionHorizontal += 1.7
+
     def changeVisability(self):
         self.visability = False  # zmina visability
         # sprawdzanie czy wszyscy zestrzeleni (areEnemiesDestroyed)
@@ -118,9 +132,9 @@ class Enemy(Ship):
         rect(self.positionHorizontal, self.positionVertical, self.width, self.height) # Obszak ktory obejmuje statek.
         noStroke()
         # KONIEC POKAZYWANIE OBSZARU KOLIZJI
-       
-        
-    
+
+
+
 class Bullet:
     def __init__(self, isUp, posH, posV):
         self.positionH = posH
@@ -130,20 +144,25 @@ class Bullet:
         self.width = 80 # Szerokosc pocisku
         self.height = 50 # Wysokosc pocisku
 
+        self.h_move_per_update = randint(-3, 3)
+
     def update(self):  # movement - metoda
         if self.isUp == False: # Jezeli pocisk nie leci do gory
             self.positionV += 5  # szybkosc lotu pocisku
-            if self.positionV >= 600:
+            self.positionH += self.h_move_per_update
+            
+            if self.positionV >= 600 or self.positionH >= 800 or self.positionV <= 0 or self.positionH <= 0:
                 bullet_group.remove(self)
+
         if self.isUp == True: # Jezeli pocisk leci do gory
             self.positionV -= 5
             if self.positionV <= 0:
                 bullet_group.remove(self)
-                
+
     def sketch_bullet(self):
         image(self.sprite, self.positionH, self.positionV)
 
-        
+
         # POKAZANIE OBSZARU KOLIZJI
         stroke(100)
         noFill()
@@ -153,28 +172,27 @@ class Bullet:
 
     def update_movement(self):
         self.positionV
-        self.positionH 
-        
+        self.positionH
 
 
 class RepairKit:
     def __init__(self):
         self.visability = False
         self.sprite = loadImage("RepairKit.png")  # to tylko załadowanie grafiki, nie rysowanie, powinno dziać się raz, nie co klatkę
-        
+
     def sketch_RepairKit(self):
         self.positionH = 30
         self.positionV = 490
         if self.visability == True:
             image(self.sprite, self.positionH, self.positionV)
         self.value = 20
-        
+
     def RepairKitCollision(self):
         if player1.positionH == self.positionH:
             self.visability = False
             return True
         return False
-        
+
     def RepairKitSpawn(self):
         if Interface.points >= 1:
             if Interface.health <= 80:
@@ -183,9 +201,9 @@ class RepairKit:
         return False
 
     def RepairProcedure(self):
-        if (self.RepairKitCollision() and self.RepairKitSpawn()) == True:
+        if self.RepairKitCollision() and self.RepairKitSpawn():
             Interface.health += self.value
-            text("naprawiono", height/4, width/4)
+            text("naprawiono", height / 4, width / 4)
 
 
 class Shield:
@@ -212,16 +230,16 @@ class Interface:
         textSize(30)
         text("Health: " + str(Interface.health), 550, 540)
 
-                    
-    def bulletOrShipIntoYou(self): #2 
+
+    def bulletOrShipIntoYou(self): #2
         Interface.health -= 10
         if Interface.health <= 0:
             image(loadImage("gameover.png"), 300, 100)# wyświetlenie GameOver
             fill(255, 0, 0)
             text("Twoje punkty to " + str(Interface.points), width / 3, 350)
             player1.sketch_explosion()
-            noLoop() 
-        
+            noLoop()
+
     def areEnemiesDestroyed(self):
         for enemy in enemyList:
             if enemy.visability == True:
@@ -235,9 +253,9 @@ class Interface:
 
     def showScore(self):
         textSize(30)
-        text("Score:" + str(Interface.points), 5, 50)  # metoda wyświetlająca bieżącą punktację    
+        text("Score:" + str(Interface.points), 5, 50)  # metoda wyświetlająca bieżącą punktację
 
-        
+
 def setup():  # ta funkcja może występować tylko raz w programie
     size(800, 600)
     global enemyList, player1, ship1, bullet_group, tlo, s, repairKit, interface
@@ -263,7 +281,7 @@ def draw():
     player1.shooting_stars()
     s.sketch_shield()
     repairKit.sketch_RepairKit()
-    
+
     #meteoryty
     fill(200, 100, 0)
     rect(30, 200, 50, 50)
@@ -279,7 +297,7 @@ def draw():
     rect(500, 500, 30, 30)
     fill(250, 100, 0)
     rect(100, 30, 70, 70)
-    
+
     #galaktyka-tło-grafika-orbita
     stroke(255,255,255)
     fill(0, 0, 0, 0)
@@ -308,8 +326,8 @@ def draw():
     stroke (81, 81, 81)
     fill(81, 81, 81)
     ellipse(207, 165, 4, 4)
-    
-    #grafiki do tła (planety) 
+
+    #grafiki do tła (planety)
     stroke(19,26,60)
     fill(19,26,60)
     ellipse(400, 100, 100, 100)
@@ -328,13 +346,13 @@ def draw():
     fill(220,0,190,130)
     rect(720, 10, 70, 40)
     text('exit', 727,40)
-    
+
     fill(220,0,190,130)
     rect(605, 10, 100, 40)
     text('restart', 607,40)
-    
+
     player1.nextShot += 1
-    
+
     if keyPressed:
         if key == "a" or keyCode == 37:  # jeżeli strzałka w lewo albo 'a'
             player1.changePositionH(-5)
@@ -348,13 +366,13 @@ def draw():
         '''
         if key == " " or key == ENTER: # jeżeli spacja lub enter lub strzałka w dół
             player1.shot(True, player1.positionH, player1.positionV)
-      
+
         if player1.positionH < 0:
             player1.positionH = 0
         if player1.positionH > 700:
             player1.positionH = 700
 
-            
+
     for enemy in enemyList:
         enemy.changePosition()
         if enemy.positionVertical >=player1.positionV-15:
@@ -371,40 +389,38 @@ def draw():
         bullet.update()
         bullet.update_movement() # przesunięcie w odpowiednim kierunku pozycji każdego z aktywnych pocisków na ekranie (liście pocisków ekranu)
         bullet.sketch_bullet()
-        
-        if(bullet.isUp == True): # Jezeli pocisk leci w gore to:
+
+        if bullet.isUp: # Jezeli pocisk leci w gore to:
             for ememy in list(enemyList): # Przelatujemy przez cala liste wrogow i:
                 if (inBounds(bullet.positionH, bullet.positionV, bullet.width, bullet.height, ememy.positionHorizontal, enemy.positionVertical, enemy.width, enemy.height) == True): # Jezeli wrog i pocisk sie zderzaja to:
-                    image(loadImage("explosion.png"), ememy.positionHorizontal, enemy.positionVertica, enemy.width, enemy.heigh)
+                    image(loadImage("explosion.png"), ememy.positionHorizontal, enemy.positionVertical, enemy.width, enemy.height)
                     enemyList.remove(ememy) # To usuwamy wroga z listy wrogow.
                     interface.addPoint() #dodawnie punktów jeśli zestrzeli się przeciwnika
                     repairKit.RepairKitSpawn()
-        
-        if(bullet.isUp == False): # Jezeli pocisk leci w dol to:
+
+        if not bullet.isUp : # Jezeli pocisk leci w dol to:
             if (inBounds(bullet.positionH, bullet.positionV, bullet.width, bullet.height, player1.positionH, player1.positionV, player1.width, player1.height) == True): # Jezeli gracz i pocisk sie zderzaja to:
                 interface.bulletOrShipIntoYou() # Powiadamiamy interfejs ze cos przywalilo w nasz statek
                 bullet_group.remove(bullet)     # Usuwamy pocisk z gry
-                
+
     repairKit.RepairProcedure()
     interface.showScore() # wyświetlenie aktualnej liczby punktów
     interface.draw_health()
     interface.areEnemiesDestroyed() #wywołanie metody żeby sprawdzić czy się grało czy nie
-    
-def keyTyped(): 
+
+
+def keyTyped():
     if key == " " or key == ENTER: # jeżeli spacja lub enter lub strzałka w dół
         if player1.shotcount > 0 and player1.nextShot > 100:
             player1.shotcount -= 1
             player1.nextShot = 0
             player1.shot(True, player1.positionH, player1.positionV)
-        
-def mouseClicked():
-    if mouseX >720 and mouseX<790:
-        if mouseY <50 and mouseY >10:
-            exit()
-            
-    if mouseX >605 and mouseX < 707:
-        if mouseY <50 and mouseY >10:
-            setup()
 
-    
-            
+def mouseClicked():
+    if mouseX > 720 and mouseX < 790:
+        if mouseY < 50 and mouseY > 10:
+            exit()
+
+    if mouseX > 605 and mouseX < 707:
+        if mouseY < 50 and mouseY > 10:
+            setup()
