@@ -7,10 +7,10 @@ class Ship:
 
 
 class Player(Ship):
-nextShot = 100
-shotcount = 5
     # poczatkowa pozycja
     def __init__(self):
+        self.nextShot = 100
+        self.shotcount = 5
         self.positionH = 350
         self.positionV = 475
         self.sprite = loadImage("Gracz One.png")
@@ -83,7 +83,7 @@ class Enemy(Ship):
         self.positionVertical = 15
         self.movementDirection = 1
         self.visability = True
-        self.sprite = loadImage("Ship.png")
+        self.sprite = loadImage("ship.png")
         self.width = 80 # Szerokosc statku
         self.height = 50 # Wysokosc statku
 
@@ -163,8 +163,8 @@ class RepairKit:
         self.sprite = loadImage("RepairKit.png")  # to tylko załadowanie grafiki, nie rysowanie, powinno dziać się raz, nie co klatkę
         
     def sketch_RepairKit(self):
-         self.positionH = 30
-         self.positionV = 490
+        self.positionH = 30
+        self.positionV = 490
         if self.visability == True:
             image(self.sprite, self.positionH, self.positionV)
         self.value = 20
@@ -353,13 +353,6 @@ def draw():
             player1.positionH = 0
         if player1.positionH > 700:
             player1.positionH = 700
-            
-            def keyTyped():
-if key == " " or key == ENTER: # jeżeli spacja lub enter lub strzałka w dół
-if player1.shotcount > 0 and player1.nextShot > 100:
-player1.shotcount -= 1
-player1.nextShot = 0
-player1.shot(True, player1.positionH, player1.positionV)
 
             
     for enemy in enemyList:
@@ -398,7 +391,10 @@ player1.shot(True, player1.positionH, player1.positionV)
     
 def keyTyped(): 
     if key == " " or key == ENTER: # jeżeli spacja lub enter lub strzałka w dół
-        player1.shot(True, player1.positionH, player1.positionV)
+        if player1.shotcount > 0 and player1.nextShot > 100:
+            player1.shotcount -= 1
+            player1.nextShot = 0
+            player1.shot(True, player1.positionH, player1.positionV)
         
 def mouseClicked():
     if mouseX >720 and mouseX<790:
