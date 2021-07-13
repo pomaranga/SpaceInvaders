@@ -375,6 +375,7 @@ def draw():
         if(bullet.isUp == True): # Jezeli pocisk leci w gore to:
             for ememy in list(enemyList): # Przelatujemy przez cala liste wrogow i:
                 if (inBounds(bullet.positionH, bullet.positionV, bullet.width, bullet.height, ememy.positionHorizontal, enemy.positionVertical, enemy.width, enemy.height) == True): # Jezeli wrog i pocisk sie zderzaja to:
+                    image(loadImage("explosion.png"), ememy.positionHorizontal, enemy.positionVertica, enemy.width, enemy.heigh)
                     enemyList.remove(ememy) # To usuwamy wroga z listy wrogow.
                     interface.addPoint() #dodawnie punktów jeśli zestrzeli się przeciwnika
                     repairKit.RepairKitSpawn()
