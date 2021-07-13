@@ -83,7 +83,7 @@ class Enemy(Ship):
         self.positionVertical = 15
         self.movementDirection = 1
         self.visability = True
-        self.sprite = loadImage("ship.png")
+        self.sprite = loadImage("Ship.png")
         self.width = 80 # Szerokosc statku
         self.height = 50 # Wysokosc statku
 
