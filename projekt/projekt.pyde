@@ -162,8 +162,8 @@ class RepairKit:
         self.sprite = loadImage("RepairKit.png")  # to tylko załadowanie grafiki, nie rysowanie, powinno dziać się raz, nie co klatkę
         
     def sketch_RepairKit(self):
-        self.positionH = 100
-        self.positionV = 500
+         self.positionH = 30
+         self.positionV = 490
         if self.visability == True:
             image(self.sprite, self.positionH, self.positionV)
         self.value = 20
@@ -360,7 +360,7 @@ def draw():
         enemy.nextShot -= 1  # loop countdown to shot
         if enemy.nextShot <= 0:  # loop countdown to shot
             isShooting = int(random(0, 2))  # drawing whether the opponent shoots
-            enemy.nextShot = 100  # loop countdown to shot
+            enemy.nextShot = random (65,100)  # loop countdown to shot
             if isShooting == 1:  # if the shot is drawn
                 enemy.shot(False , enemy.positionHorizontal, enemy.positionVertical)
 
